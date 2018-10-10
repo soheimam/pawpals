@@ -60,6 +60,7 @@ const User = sequelize.define(
     country: {
       type: Sequelize.STRING,
     },
+  },
 
   {
     timestamps: false,
@@ -78,7 +79,14 @@ app.get('/signup', (req, res) => {
 //post request signup
 app.post('/signup', (req, res) => {
   //all fields are required
-  if (!req.body.fname || !req.body.lname || !req.body.email || !req.body.sign-password || !req.body.phone-number || !req.body.country) {
+  if (
+    !req.body.fname ||
+    !req.body.lname ||
+    !req.body.email ||
+    !req.body.sign - password ||
+    !req.body.phone - number ||
+    !req.body.country
+  ) {
     res.redirect(
       '/signup?error=' + encodeURIComponent('All fields are required')
     );
@@ -93,7 +101,8 @@ app.post('/signup', (req, res) => {
       //if username is already taken, then send an error
       if (user) {
         return res.redirect(
-          '/signup?error=' + encodeURIComponent('That email has been already taken')
+          '/signup?error=' +
+            encodeURIComponent('That email has been already taken')
         );
       }
     })
@@ -101,18 +110,18 @@ app.post('/signup', (req, res) => {
       console.log(err);
     });
 
-  const password = req.body.sign-password;
+  const password = req.body.sign - password;
   bcrypt
     .hash(password, 8)
     .then(hash => {
       return User.create({
         //populate the user table using an encrypted password
-        firstname:req.body.fname,
-        lastname:req.body.lname,
+        firstname: req.body.fname,
+        lastname: req.body.lname,
         email: req.body.email,
         password: hash,
-        phone:req.body.phone-number,
-        country: req.body.country
+        phone: req.body.phone - number,
+        country: req.body.country,
       });
     })
     .then(user => {
@@ -132,7 +141,8 @@ app.post('/login', (req, res) => {
   //email and password is needed
   if (!email) {
     res.redirect(
-      '/login?message=' + encodeURIComponent('Please fill out your email address.')
+      '/login?message=' +
+        encodeURIComponent('Please fill out your email address.')
     );
   }
   if (!password) {
@@ -161,14 +171,15 @@ app.post('/login', (req, res) => {
         });
       } else {
         //if user does not exist, send a message
-        res.redirect('/login?message=' + encodeURIComponent('User does not exist'));
+        res.redirect(
+          '/login?message=' + encodeURIComponent('User does not exist')
+        );
       }
     })
     .catch(error => {
       console.error(error);
     });
 });
-
 
 //logout route
 app.get('/logout', (req, res) => {
