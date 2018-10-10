@@ -83,8 +83,8 @@ app.post('/signup', (req, res) => {
     !req.body.fname ||
     !req.body.lname ||
     !req.body.email ||
-    !req.body.sign - password ||
-    !req.body.phone - number ||
+    !req.body.password ||
+    !req.body.phone ||
     !req.body.country
   ) {
     res.redirect(
@@ -120,7 +120,7 @@ app.post('/signup', (req, res) => {
         lastname: req.body.lname,
         email: req.body.email,
         password: hash,
-        phone: req.body.phone - number,
+        phone: req.body.phone,
         country: req.body.country,
       });
     })
