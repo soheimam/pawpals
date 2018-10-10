@@ -10,7 +10,7 @@
     <body>
         <form method="POST" action="/signup">
             <label for ="fname"> First Name</label>
-            <input type="text" id="fname" name="fname">
+            <input type="text" id="fname" name="fname" >
             <label for ="lname"> Last Name</label>
             <input type="text" id="lname" name="lname">
 
@@ -23,8 +23,9 @@
             
             <label for ="sign-username"> User Name</label>
             <input type="text" id="sign-username" name="sign-username">
-            <label for ="sign-password"> Password</label>
+            <label for ="sign-password" required minlength="6" maxlength="6"> Password</label>
             <input type="text" id="sign-password" name="sign-password">
+            <input type="submit">
         </form>
         
         <script src="" async defer></script>
