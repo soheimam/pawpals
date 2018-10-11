@@ -68,8 +68,43 @@ const User = sequelize.define(
   }
 );
 
+//defining the User model
+const Dog = sequelize.define(
+  'dogs',
+  {
+    fistname: {
+      type: Sequelize.STRING,
+    },
+    lastname: {
+      type: Sequelize.STRING,
+    },
+    email: {
+      type: Sequelize.STRING,
+      unique: true,
+    },
+    password: {
+      type: Sequelize.STRING,
+      unique: true,
+    },
+    phone: {
+      type: Sequelize.STRING,
+    },
+    country: {
+      type: Sequelize.STRING,
+    },
+  },
+
+  {
+    timestamps: false,
+  }
+);
+
 app.get('/', (req, res) => {
   res.render('login');
+});
+
+app.get('/create-profile', (req, res) => {
+  res.render('profile');
 });
 
 //signup route

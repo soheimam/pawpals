@@ -13,26 +13,27 @@
 <body>
   <form method="POST" action="/profile">
     <label for="dog-name"> Dog Name</label>
-    <input type="text" id="dog-name" name="dog-name">
-
+    <input type="text" id="dog-name" name="name">
 
     <label for="dog-breed"> Dog Breed</label>
-    <input type="text" id="dog-breed" name="dog-breed">
+    <select name="breeds" id="breeds"></select>
 
-    <label for="dog-breed"> dog-breed</label>
-    <input type="text" id="dog-breed" name="dog-breed">
-    <label for="dog-age"> dog Age </label>
-    <input type="text" id="country" name="country">
+    <label for="dog-age"> Dog Age </label>
+    <input type="text" id="age" name="age">
+
+    <label for="dog-gender"> Dog Gender </label>
     <select name="sex">
-      <option value="Female"> Female</option>
-      <option value="Male"> Male </option>
+      <option value="Female">Female</option>
+      <option value="Male">Male </option>
     </select>
 
-    <label for="sign-password"> Password</label>
-    <input type="text" id="password" name="assword">
+    <label for="description"> Description </label>
+    <textarea id="description" name="description">
+    </textarea>
+
   </form>
 
-  <script src="" async defer></script>
+  <script type="text/javascript" src="/javascript/index.js"></script>
 </body>
 
 </html>
