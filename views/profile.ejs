@@ -11,18 +11,18 @@
 </head>
 
 <body>
-  <form method="POST" action="/profile">
+  <form method="POST" action="/create-profile">
     <label for="dog-name"> Dog Name</label>
     <input type="text" id="dog-name" name="name">
 
     <label for="dog-breed"> Dog Breed</label>
-    <select name="breeds" id="breeds"></select>
+    <select name="breed" id="breeds"></select>
 
     <label for="dog-age"> Dog Age </label>
-    <input type="text" id="age" name="age">
+    <input type="number" id="age" name="age">
 
     <label for="dog-gender"> Dog Gender </label>
-    <select name="sex">
+    <select name="gender">
       <option value="Female">Female</option>
       <option value="Male">Male </option>
     </select>
@@ -30,6 +30,7 @@
     <label for="description"> Description </label>
     <textarea id="description" name="description">
     </textarea>
+    <button type="submit" class="nice">Create profile </button>
 
   </form>
 

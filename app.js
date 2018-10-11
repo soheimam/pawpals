@@ -41,7 +41,7 @@ app.use(
 const User = sequelize.define(
   'users',
   {
-    fistname: {
+    firstname: {
       type: Sequelize.STRING,
     },
     lastname: {
@@ -72,39 +72,33 @@ const User = sequelize.define(
 const Dog = sequelize.define(
   'dogs',
   {
-    fistname: {
+    name: {
       type: Sequelize.STRING,
     },
-    lastname: {
+    breed: {
       type: Sequelize.STRING,
     },
-    email: {
+    age: {
+      type: Sequelize.STRING,
+    },
+    gender: {
       type: Sequelize.STRING,
       unique: true,
     },
-    password: {
-      type: Sequelize.STRING,
-      unique: true,
-    },
-    phone: {
-      type: Sequelize.STRING,
-    },
-    country: {
-      type: Sequelize.STRING,
+    description: {
+      type: Sequelize.TEXT,
     },
   },
-
   {
     timestamps: false,
   }
 );
 
+User.hasMany(Dog);
+Dog.belongsTo(User);
+
 app.get('/', (req, res) => {
   res.render('login');
-});
-
-app.get('/create-profile', (req, res) => {
-  res.render('profile');
 });
 
 //signup route
@@ -134,11 +128,13 @@ app.post('/signup', (req, res) => {
     },
   })
     .then(user => {
-      //if username is already taken, then send an error
+      //if mail is already taken, then send an error
       if (user) {
         return res.redirect(
           '/signup?error=' +
-            encodeURIComponent('That email has been already taken')
+            encodeURIComponent(
+              'An account with that email is already registered'
+            )
         );
       }
     })
@@ -225,6 +221,36 @@ app.get('/logout', (req, res) => {
     }
     res.redirect('/?message=' + encodeURIComponent('You are logged out.'));
   });
+});
+
+app.get('/create-profile', (req, res) => {
+  res.render('profile');
+});
+
+app.post('/create-profile', (req, res) => {
+  const userEmail = req.session.user.email;
+
+  User.findOne({
+    where: {
+      email: userEmail,
+    },
+  })
+    .then(user => {
+      //populate dog table with user relation
+      return user.createDog({
+        name: req.body.name,
+        breed: req.body.breed,
+        age: req.body.age,
+        gender: req.body.gender,
+        description: req.body.description,
+      });
+    })
+    .then(post => {
+      res.redirect(`/profile}`);
+    })
+    .catch(err => {
+      console.log(err);
+    });
 });
 
 sequelize
