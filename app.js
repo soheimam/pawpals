@@ -14,6 +14,7 @@ app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
+require('dotenv').config();
 //db config
 const sequelize = new Sequelize({
   database: process.env.DB_NAME,
@@ -110,7 +111,7 @@ app.post('/signup', (req, res) => {
       console.log(err);
     });
 
-  const password = req.body.sign - password;
+  const password = req.body.password;
   bcrypt
     .hash(password, 8)
     .then(hash => {
@@ -192,7 +193,7 @@ app.get('/logout', (req, res) => {
 });
 
 sequelize
-  .sync()
+  .sync({ force: true })
   .then(() => {
     const server = app.listen(3000, () => {
       console.log('App listening on port: ' + server.address().port);
