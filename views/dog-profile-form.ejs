@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="/css/normalize.css" rel="stylesheet" type="text/css">
+  <link href="/css/main.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+  <form method="POST" action="/create-dog-profile">
+    <label for="dog-name"> Dog Name</label>
+    <input type="text" id="dog-name" name="name">
+
+    <label for="dog-breed"> Dog Breed</label>
+    <select name="breed" id="breeds"></select>
+
+    <label for="dog-age">Dog Age </label>
+    <input type="text" id="age" name="age">
+
+    <label for="dog-gender"> Dog Gender </label>
+    <select name="gender">
+      <option value="Female">Female</option>
+      <option value="Male">Male </option>
+    </select>
+
+    <label for="description"> Description </label>
+    <textarea id="description" name="description">
+    </textarea>
+    <button type="submit" class="nice">Create profile </button>
+
+  </form>
+
+  <script type="text/javascript" src="/javascript/index.js"></script>
+</body>
+
+</html>

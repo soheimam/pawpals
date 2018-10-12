@@ -14,6 +14,7 @@ app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
+require('dotenv').config();
 //db config
 const sequelize = new Sequelize({
   database: process.env.DB_NAME,
@@ -40,7 +41,7 @@ app.use(
 const User = sequelize.define(
   'users',
   {
-    fistname: {
+    firstname: {
       type: Sequelize.STRING,
     },
     lastname: {
@@ -67,7 +68,36 @@ const User = sequelize.define(
   }
 );
 
-app.get('/', (req, res) => {
+//defining the User model
+const Dog = sequelize.define(
+  'dogs',
+  {
+    name: {
+      type: Sequelize.STRING,
+    },
+    breed: {
+      type: Sequelize.STRING,
+    },
+    age: {
+      type: Sequelize.STRING,
+    },
+    gender: {
+      type: Sequelize.STRING,
+      unique: true,
+    },
+    description: {
+      type: Sequelize.TEXT,
+    },
+  },
+  {
+    timestamps: false,
+  }
+);
+
+User.hasMany(Dog);
+Dog.belongsTo(User);
+
+app.get('/login', (req, res) => {
   res.render('login');
 });
 
@@ -83,8 +113,8 @@ app.post('/signup', (req, res) => {
     !req.body.fname ||
     !req.body.lname ||
     !req.body.email ||
-    !req.body.sign - password ||
-    !req.body.phone - number ||
+    !req.body.password ||
+    !req.body.phone ||
     !req.body.country
   ) {
     res.redirect(
@@ -98,11 +128,13 @@ app.post('/signup', (req, res) => {
     },
   })
     .then(user => {
-      //if username is already taken, then send an error
+      //if mail is already taken, then send an error
       if (user) {
         return res.redirect(
           '/signup?error=' +
-            encodeURIComponent('That email has been already taken')
+            encodeURIComponent(
+              'An account with that email is already registered'
+            )
         );
       }
     })
@@ -110,7 +142,7 @@ app.post('/signup', (req, res) => {
       console.log(err);
     });
 
-  const password = req.body.sign - password;
+  const password = req.body.password;
   bcrypt
     .hash(password, 8)
     .then(hash => {
@@ -120,13 +152,12 @@ app.post('/signup', (req, res) => {
         lastname: req.body.lname,
         email: req.body.email,
         password: hash,
-        phone: req.body.phone - number,
+        phone: req.body.phone,
         country: req.body.country,
       });
     })
     .then(user => {
       req.session.user = user;
-
       res.redirect('/profile');
     })
     .catch(err => {
@@ -139,6 +170,7 @@ app.post('/login', (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
   //email and password is needed
+
   if (!email) {
     res.redirect(
       '/login?message=' +
@@ -150,6 +182,7 @@ app.post('/login', (req, res) => {
       '/login?message=' + encodeURIComponent('Please fill out your password.')
     );
   }
+
   //find the user with the email from the req
   User.findOne({
     where: {
@@ -188,6 +221,49 @@ app.get('/logout', (req, res) => {
       throw error;
     }
     res.redirect('/?message=' + encodeURIComponent('You are logged out.'));
+  });
+});
+
+app.get('/create-dog-profile', (req, res) => {
+  res.render('dog-profile-form');
+});
+
+app.post('/create-dog-profile', (req, res) => {
+  const userEmail = req.session.user.email;
+
+  User.findOne({
+    where: {
+      email: userEmail,
+    },
+  })
+    .then(user => {
+      //populate dog table with user relation
+      return user.createDog({
+        name: req.body.name,
+        breed: req.body.breed,
+        age: req.body.age,
+        gender: req.body.gender,
+        description: req.body.description,
+      });
+    })
+    .then(post => {
+      res.redirect(`/profile`);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+});
+
+app.get('/profile:username', (req, res) => {
+  const userData = req.session.user;
+  const username = req.params.username;
+  Dog.findAll({
+    where: {
+      userId: userData.id,
+    },
+  }).then(dogs => {
+    console.log(dogs);
+    res.render('profile', { userData });
   });
 });
 
