@@ -11,28 +11,8 @@
 </head>
 
 <body>
-  <form method="POST" action="/create-profile">
-    <label for="dog-name"> Dog Name</label>
-    <input type="text" id="dog-name" name="name">
-
-    <label for="dog-breed"> Dog Breed</label>
-    <select name="breed" id="breeds"></select>
-
-    <label for="dog-age"> Dog Age </label>
-    <input type="number" id="age" name="age">
-
-    <label for="dog-gender"> Dog Gender </label>
-    <select name="gender">
-      <option value="Female">Female</option>
-      <option value="Male">Male </option>
-    </select>
-
-    <label for="description"> Description </label>
-    <textarea id="description" name="description">
-    </textarea>
-    <button type="submit" class="nice">Create profile </button>
-
-  </form>
+  <h1>Welcome
+    <%= userData.firstname %>, to your dashboard?</h1>
 
   <script type="text/javascript" src="/javascript/index.js"></script>
 </body>

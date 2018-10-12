@@ -97,7 +97,7 @@ const Dog = sequelize.define(
 User.hasMany(Dog);
 Dog.belongsTo(User);
 
-app.get('/', (req, res) => {
+app.get('/login', (req, res) => {
   res.render('login');
 });
 
@@ -158,7 +158,6 @@ app.post('/signup', (req, res) => {
     })
     .then(user => {
       req.session.user = user;
-
       res.redirect('/profile');
     })
     .catch(err => {
@@ -171,6 +170,7 @@ app.post('/login', (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
   //email and password is needed
+
   if (!email) {
     res.redirect(
       '/login?message=' +
@@ -182,6 +182,7 @@ app.post('/login', (req, res) => {
       '/login?message=' + encodeURIComponent('Please fill out your password.')
     );
   }
+
   //find the user with the email from the req
   User.findOne({
     where: {
@@ -223,11 +224,11 @@ app.get('/logout', (req, res) => {
   });
 });
 
-app.get('/create-profile', (req, res) => {
-  res.render('profile');
+app.get('/create-dog-profile', (req, res) => {
+  res.render('dog-profile-form');
 });
 
-app.post('/create-profile', (req, res) => {
+app.post('/create-dog-profile', (req, res) => {
   const userEmail = req.session.user.email;
 
   User.findOne({
@@ -246,15 +247,28 @@ app.post('/create-profile', (req, res) => {
       });
     })
     .then(post => {
-      res.redirect(`/profile}`);
+      res.redirect(`/profile`);
     })
     .catch(err => {
       console.log(err);
     });
 });
 
+app.get('/profile:username', (req, res) => {
+  const userData = req.session.user;
+  const username = req.params.username;
+  Dog.findAll({
+    where: {
+      userId: userData.id,
+    },
+  }).then(dogs => {
+    console.log(dogs);
+    res.render('profile', { userData });
+  });
+});
+
 sequelize
-  .sync({ force: true })
+  .sync()
   .then(() => {
     const server = app.listen(3000, () => {
       console.log('App listening on port: ' + server.address().port);
