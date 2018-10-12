@@ -11,10 +11,24 @@
 </head>
 
 <body>
+  <a href="/logout">logout</a>
   <h1>Welcome
-    <%= userData.firstname %>, to your dashboard?</h1>
+    <%= userSessionData.firstname %>, to your dashboard or whatever we want to call this?</h1>
+  <%  if (!dogs.length) { %>
+  <p>You haven't registered your dog yet!</p>
+  <a href='/create-dog-profile'>Create dog profile</a>
+  <% } else { %>
+  <p>Here are your furry babies</p>
+  <% dogs.forEach(dog => { %>
+  <p>
+    <%= dog.name %>
+  </p>
+  <% }) %>
+  <a href='/create-dog-profile'>Register a new dog</a>
 
-  <script type="text/javascript" src="/javascript/index.js"></script>
+  <% } %>
+
+  <script type="text/javascript" src=""></script>
 </body>
 
 </html>

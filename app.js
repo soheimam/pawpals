@@ -101,13 +101,15 @@ User.hasMany(Dog);
 Dog.belongsTo(User);
 
 app.get('/login', (req, res) => {
-  res.render('login');
+  const message = req.query.message;
+  res.render('login', { message });
 });
 
 //signup route
 app.get('/signup', (req, res) => {
   const regions = nlRegions.regions;
-  res.render('signup', { regions });
+  const message = req.query.message;
+  res.render('signup', { regions, message });
 });
 
 //post request signup
@@ -122,7 +124,7 @@ app.post('/signup', (req, res) => {
     !req.body.region
   ) {
     res.redirect(
-      '/signup?error=' + encodeURIComponent('All fields are required')
+      '/signup?message=' + encodeURIComponent('All fields are required')
     );
   }
   //find a user with that username
@@ -135,7 +137,7 @@ app.post('/signup', (req, res) => {
       //if mail is already taken, then send an error
       if (user) {
         return res.redirect(
-          '/signup?error=' +
+          '/signup?message=' +
             encodeURIComponent(
               'An account with that email is already registered'
             )
@@ -162,7 +164,7 @@ app.post('/signup', (req, res) => {
     })
     .then(user => {
       req.session.user = user;
-      res.redirect('/profile');
+      res.redirect(`/profile/${user.id}`);
     })
     .catch(err => {
       console.log(err);
@@ -198,7 +200,7 @@ app.post('/login', (req, res) => {
         bcrypt.compare(password, user.password).then(isValidPassword => {
           if (isValidPassword) {
             req.session.user = user;
-            res.redirect('/profile');
+            res.redirect(`/profile/${user.id}`);
           } else {
             //if the password is incorrect, send a message
             res.redirect(
@@ -235,7 +237,7 @@ app.get('/create-dog-profile', (req, res) => {
 
 app.post('/create-dog-profile', (req, res) => {
   const userEmail = req.session.user.email;
-
+  const user = req.session.user;
   User.findOne({
     where: {
       email: userEmail,
@@ -252,28 +254,53 @@ app.post('/create-dog-profile', (req, res) => {
       });
     })
     .then(post => {
-      res.redirect(`/profile`);
+      res.redirect(`/profile/${user.id}`);
     })
     .catch(err => {
       console.log(err);
     });
 });
 
-app.get('/profile:username', (req, res) => {
-  const userData = req.session.user;
-  const username = req.params.username;
-  Dog.findAll({
+app.get('/profile/:id', (req, res) => {
+  const userSessionData = req.session.user;
+  const userSessionId = req.session.user.id;
+  const id = req.params.id;
+  User.findAll({
     where: {
-      userId: userData.id,
+      id: id,
     },
-  }).then(dogs => {
-    console.log(dogs);
-    res.render('profile', { userData });
+  }).then(user => {
+    console.log(user);
+    if (!user.length) {
+      res.redirect(
+        '/404?error=' + encodeURIComponent('That profile does not exist')
+      );
+    } else {
+      Dog.findAll({
+        where: {
+          userId: userSessionId,
+        },
+      }).then(dogs => {
+        console.log(dogs);
+        res.render('profile', { userSessionData, dogs });
+      });
+    }
   });
 });
 
+//render landingpage
+app.get('/', (req, res) => {
+  res.render('index');
+});
+
+//render 404
+app.get('/404', (req, res) => {
+  const error = req.query.error;
+  res.render('404', { error });
+});
+
 sequelize
-  .sync({ force: true })
+  .sync()
   .then(() => {
     const server = app.listen(3000, () => {
       console.log('App listening on port: ' + server.address().port);
