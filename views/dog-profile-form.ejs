@@ -16,7 +16,14 @@
     <input type="text" id="dog-name" name="name" required>
 
     <label for="dog-breed"> Dog Breed</label>
-    <select name="breed" id="breeds" required></select>
+    <select name="breed" id="breeds" required>
+      <% breeds.forEach(b => { %>
+      <option value="<%= b%>">
+        <%= b%>
+      </option>
+      <% }) %>
+    </select>
+
 
     <label for="dog-age">Dog Age </label>
     <input type="text" id="age" name="age" placeholder="years" required>
@@ -34,7 +41,7 @@
 
   </form>
 
-  <script type="text/javascript" src="/javascript/index.js"></script>
+  <script type="text/javascript" src=""></script>
 </body>
 
 </html>

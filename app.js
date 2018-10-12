@@ -14,6 +14,10 @@ app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
+//requiring json data
+const dogBreeds = require('./data/json/breeds.json');
+const nlRegions = require('./data/json/nlregions.json');
+
 require('dotenv').config();
 //db config
 const sequelize = new Sequelize({
@@ -58,7 +62,7 @@ const User = sequelize.define(
     phone: {
       type: Sequelize.STRING,
     },
-    country: {
+    region: {
       type: Sequelize.STRING,
     },
   },
@@ -102,7 +106,8 @@ app.get('/login', (req, res) => {
 
 //signup route
 app.get('/signup', (req, res) => {
-  res.render('signup');
+  const regions = nlRegions.regions;
+  res.render('signup', { regions });
 });
 
 //post request signup
@@ -114,7 +119,7 @@ app.post('/signup', (req, res) => {
     !req.body.email ||
     !req.body.password ||
     !req.body.phone ||
-    !req.body.country
+    !req.body.region
   ) {
     res.redirect(
       '/signup?error=' + encodeURIComponent('All fields are required')
@@ -152,7 +157,7 @@ app.post('/signup', (req, res) => {
         email: req.body.email,
         password: hash,
         phone: req.body.phone,
-        country: req.body.country,
+        region: req.body.region,
       });
     })
     .then(user => {
@@ -224,7 +229,8 @@ app.get('/logout', (req, res) => {
 });
 
 app.get('/create-dog-profile', (req, res) => {
-  res.render('dog-profile-form');
+  const breeds = dogBreeds.dogs;
+  res.render('dog-profile-form', { breeds });
 });
 
 app.post('/create-dog-profile', (req, res) => {
