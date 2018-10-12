@@ -13,22 +13,22 @@
 <body>
   <form method="POST" action="/create-dog-profile">
     <label for="dog-name"> Dog Name</label>
-    <input type="text" id="dog-name" name="name">
+    <input type="text" id="dog-name" name="name" required>
 
     <label for="dog-breed"> Dog Breed</label>
-    <select name="breed" id="breeds"></select>
+    <select name="breed" id="breeds" required></select>
 
     <label for="dog-age">Dog Age </label>
-    <input type="text" id="age" name="age">
+    <input type="text" id="age" name="age" placeholder="years" required>
 
     <label for="dog-gender"> Dog Gender </label>
-    <select name="gender">
+    <select name="gender" required>
       <option value="Female">Female</option>
       <option value="Male">Male </option>
     </select>
 
     <label for="description"> Description </label>
-    <textarea id="description" name="description">
+    <textarea id="description" name="description" required>
     </textarea>
     <button type="submit" class="nice">Create profile </button>
 

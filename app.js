@@ -83,7 +83,6 @@ const Dog = sequelize.define(
     },
     gender: {
       type: Sequelize.STRING,
-      unique: true,
     },
     description: {
       type: Sequelize.TEXT,
@@ -268,7 +267,7 @@ app.get('/profile:username', (req, res) => {
 });
 
 sequelize
-  .sync()
+  .sync({ force: true })
   .then(() => {
     const server = app.listen(3000, () => {
       console.log('App listening on port: ' + server.address().port);
