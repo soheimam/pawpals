@@ -230,9 +230,34 @@ app.get('/logout', (req, res) => {
   });
 });
 
+app.get('/profile/:id', (req, res) => {
+  const userSessionData = req.session.user;
+  const userSessionId = req.session.user.id;
+  const id = req.params.id;
+  User.findAll({
+    where: {
+      id: id,
+    },
+  }).then(user => {
+    if (!user.length) {
+      res.redirect(
+        '/404?error=' + encodeURIComponent('That profile does not exist')
+      );
+    } else {
+      Dog.findAll({
+        where: {
+          userId: userSessionId,
+        },
+      }).then(dogs => {
+        res.render('profile', { userSessionData, dogs });
+      });
+    }
+  });
+});
+
 app.get('/create-dog-profile', (req, res) => {
   const breeds = dogBreeds.dogs;
-  res.render('dog-profile-form', { breeds });
+  res.render('create-dog-profile', { breeds });
 });
 
 app.post('/create-dog-profile', (req, res) => {
@@ -261,30 +286,17 @@ app.post('/create-dog-profile', (req, res) => {
     });
 });
 
-app.get('/profile/:id', (req, res) => {
-  const userSessionData = req.session.user;
-  const userSessionId = req.session.user.id;
-  const id = req.params.id;
-  User.findAll({
+//render each dog details
+app.get('/dog-profile/:id', (req, res) => {
+  const userSession = req.session.user;
+  const dogId = req.params.id;
+  Dog.findAll({
     where: {
-      id: id,
+      id: dogId,
     },
-  }).then(user => {
-    console.log(user);
-    if (!user.length) {
-      res.redirect(
-        '/404?error=' + encodeURIComponent('That profile does not exist')
-      );
-    } else {
-      Dog.findAll({
-        where: {
-          userId: userSessionId,
-        },
-      }).then(dogs => {
-        console.log(dogs);
-        res.render('profile', { userSessionData, dogs });
-      });
-    }
+  }).then(dog => {
+    const dogData = dog[0];
+    res.render('dog-profile', { dog: dogData });
   });
 });
 

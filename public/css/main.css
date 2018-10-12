@@ -1,0 +1,18 @@
+/*temporary styles for Bere's sanity*/
+
+body {
+  max-width: 80vw;
+  margin: 50px auto;
+}
+
+label,
+input,
+textarea {
+  display: block;
+  margin: 5px 0;
+}
+
+a {
+  display: block;
+  padding: 5px 0;
+}

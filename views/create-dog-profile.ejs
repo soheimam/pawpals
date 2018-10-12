@@ -11,7 +11,8 @@
 </head>
 
 <body>
-  <form method="POST" action="/create-dog-profile">
+  <h1>Create your dog profile </h1>
+  <form method="POST" action="/create-dog-profile" autocomplete="off">
     <label for="dog-name"> Dog Name</label>
     <input type="text" id="dog-name" name="name" required>
 
@@ -24,9 +25,8 @@
       <% }) %>
     </select>
 
-
     <label for="dog-age">Dog Age </label>
-    <input type="text" id="age" name="age" placeholder="years" required>
+    <input type="number" id="age" name="age" placeholder="years" required>
 
     <label for="dog-gender"> Dog Gender </label>
     <select name="gender" required>

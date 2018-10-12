@@ -15,14 +15,14 @@
   <h1>Welcome
     <%= userSessionData.firstname %>, to your dashboard or whatever we want to call this?</h1>
   <%  if (!dogs.length) { %>
-  <p>You haven't registered your dog yet!</p>
-  <a href='/create-dog-profile'>Create dog profile</a>
+  <p>You haven't registered any dogs yet!</p>
+  <a href='/create-dog-profile'>Create a dog profile</a>
   <% } else { %>
   <p>Here are your furry babies</p>
   <% dogs.forEach(dog => { %>
-  <p>
+  <a href="/dog-profile/<%= dog.id %>">
     <%= dog.name %>
-  </p>
+  </a>
   <% }) %>
   <a href='/create-dog-profile'>Register a new dog</a>
 
