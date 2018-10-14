@@ -18,11 +18,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 const defineModels = require('./models/index.js');
 
 //defining routes
-const getLoginRoutes = require('./routes/login.js');
-const getLogoutRoutes = require('./routes/logout.js');
-const getSignupRoutes = require('./routes/signup.js');
-const getUserRoutes = require('./routes/user.js');
-const getDogRoutes = require('./routes/dog.js');
+const homeRoutes = require('./routes/home.js');
+const loginRoutes = require('./routes/login.js');
+const logoutRoutes = require('./routes/logout.js');
+const signupRoutes = require('./routes/signup.js');
+const userRoutes = require('./routes/user.js');
+const dogRoutes = require('./routes/dog.js');
+const notFoundRoutes = require('./routes/404.js');
 
 //db config
 const sequelize = new Sequelize({
@@ -35,13 +37,6 @@ const sequelize = new Sequelize({
 
 // Define DB Models
 const models = defineModels(sequelize);
-
-// Get Route Data
-const loginRoutes = getLoginRoutes(models.User);
-const logoutRoutes = getLogoutRoutes();
-const signupRoutes = getSignupRoutes(models.User);
-const userRoutes = getUserRoutes(models.User, models.Dog);
-const dogRoutes = getDogRoutes(models.User, models.Dog);
 
 //define sessions
 app.use(
@@ -58,28 +53,19 @@ app.use(
 );
 
 // Routes
-app.use('/login', loginRoutes);
-app.use('/logout', logoutRoutes);
-app.use('/signup', signupRoutes);
-app.use('/user', userRoutes);
-app.use('/dog', dogRoutes);
+app.use('/', homeRoutes());
+app.use('/login', loginRoutes(models.User));
+app.use('/logout', logoutRoutes());
+app.use('/signup', signupRoutes(models.User));
+app.use('/user', userRoutes(models.User, models.Dog));
+app.use('/dog', dogRoutes(models.User, models.Dog));
+app.use('*', notFoundRoutes());
 
 sequelize
   .sync()
   .then(() => {
     const server = app.listen(3000, () => {
-      console.log('App listening on port: ' + server.address().port);
+      console.log(`App listening on port: ${server.address().port}`);
     });
   })
   .catch(error => console.log('This error occured', error));
-
-//render landingpage
-app.get('/', (req, res) => {
-  res.render('index');
-});
-
-//render 404
-app.get('/404', (req, res) => {
-  const error = req.query.error;
-  res.render('404', { error });
-});

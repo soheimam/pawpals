@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const bcrypt = require('bcrypt');
 
 //requiring json data for select dropdowns
 const nlRegions = require('../data/json/nlregions.json');

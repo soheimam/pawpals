@@ -73,7 +73,7 @@ module.exports = (User, Dog) => {
     }).then(user => {
       if (!user.length) {
         res.redirect(
-          '/404?error=' + encodeURIComponent('That profile does not exist')
+          `/404?error= ${encodeURIComponent('That profile does not exist')}`
         );
       } else {
         Dog.findAll({
