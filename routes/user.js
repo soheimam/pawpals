@@ -15,7 +15,7 @@ module.exports = (User, Dog) => {
       !req.body.region
     ) {
       res.redirect(
-        '/signup?message=' + encodeURIComponent('All fields are required')
+        `/signup?message=${encodeURIComponent('All fields are required')}`
       );
     }
     //find a user with that username
@@ -28,10 +28,9 @@ module.exports = (User, Dog) => {
         //if mail is already taken, then send an error
         if (user) {
           return res.redirect(
-            '/signup?message=' +
-              encodeURIComponent(
-                'An account with that email is already registered'
-              )
+            `/signup?message=${encodeURIComponent(
+              'An account with that email is already registered'
+            )}`
           );
         }
       })
@@ -72,9 +71,8 @@ module.exports = (User, Dog) => {
       },
     }).then(user => {
       if (!user.length) {
-        res.redirect(
-          `/404?error= ${encodeURIComponent('That profile does not exist')}`
-        );
+        res.status(400);
+        res.render('404', { error: 'This user does not exist' });
       } else {
         Dog.findAll({
           where: {

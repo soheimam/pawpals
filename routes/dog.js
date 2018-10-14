@@ -40,8 +40,8 @@ module.exports = (User, Dog) => {
           description: req.body.description,
         });
       })
-      .then(post => {
-        res.redirect(`/profile/${user.id}`);
+      .then(dog => {
+        res.redirect(`/dog/${dog.id}`);
       })
       .catch(err => {
         console.log(err);

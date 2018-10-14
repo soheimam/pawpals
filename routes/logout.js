@@ -7,7 +7,7 @@ module.exports = () => {
       if (error) {
         throw error;
       }
-      res.redirect('/?message=' + encodeURIComponent('You are logged out.'));
+      res.redirect(`/?message=${encodeURIComponent('You are logged out.')}`);
     });
   };
 

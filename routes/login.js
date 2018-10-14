@@ -15,13 +15,14 @@ module.exports = User => {
 
     if (!email) {
       res.redirect(
-        '/login?message=' +
-          encodeURIComponent('Please fill out your email address.')
+        `/login?message=${encodeURIComponent(
+          'Please fill out your email address.'
+        )}`
       );
     }
     if (!password) {
       res.redirect(
-        '/login?message=' + encodeURIComponent('Please fill out your password.')
+        `/login?message=${encodeURIComponent('Please fill out your password.')}`
       );
     }
 
@@ -40,14 +41,14 @@ module.exports = User => {
             } else {
               //if the password is incorrect, send a message
               res.redirect(
-                '/login?message=' + encodeURIComponent('Invalid  password.')
+                `/login?message=${encodeURIComponent('Invalid password')}`
               );
             }
           });
         } else {
           //if user does not exist, send a message
           res.redirect(
-            '/login?message=' + encodeURIComponent('User does not exist')
+            `/login?message=${encodeURIComponent('User does not exist')}`
           );
         }
       })

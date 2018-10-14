@@ -4,7 +4,7 @@ const router = express.Router();
 //render landingpage
 module.exports = () => {
   const get = (req, res) => {
-    const error = req.query.error;
+    const error = req.query.error || 'Page not found';
     res.render('404', { error });
   };
   return router.get('/', get);
