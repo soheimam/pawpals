@@ -13,17 +13,11 @@ const post = (req, res) => {
   const password = req.body.password;
   //email and password is needed
 
-  if (!email) {
-    res.redirect(
-      `/login?message=${encodeURIComponent(
-        'Please fill out your email address.'
-      )}`
-    );
-  }
-  if (!password) {
-    res.redirect(
-      `/login?message=${encodeURIComponent('Please fill out your password.')}`
-    );
+  if (!email || !password) {
+    const errorMsg = !email
+      ? 'Please fill out your email.'
+      : 'Please fill out your password.';
+    res.redirect(`/login?message=${encodeURIComponent(errorMsg)}`);
   }
 
   //find the user with the email from the req
