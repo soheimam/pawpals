@@ -4,21 +4,25 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const Sequelize = require('sequelize');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
-const bcrypt = require('bcrypt');
 
-//get the css files
+//environment vars
+require('dotenv').config();
+//get the static files
 app.use(express.static('public'));
-
 //set ejs
 app.set('view engine', 'ejs');
-
+//bodyparser
 app.use(bodyParser.urlencoded({ extended: false }));
 
-//requiring json data
-const dogBreeds = require('./data/json/breeds.json');
-const nlRegions = require('./data/json/nlregions.json');
+//assigning the module exports from models/index to a const
+const defineModels = require('./models/index.js');
 
-require('dotenv').config();
+//defining routes
+const getLoginRoutes = require('./routes/login.js');
+const getLogoutRoutes = require('./routes/logout.js');
+const getSignupRoutes = require('./routes/signup.js');
+const getDogRoutes = require('./routes/dog.js');
+
 //db config
 const sequelize = new Sequelize({
   database: process.env.DB_NAME,
@@ -28,6 +32,16 @@ const sequelize = new Sequelize({
   storage: './session.postgres',
 });
 
+// Define DB Models
+const models = defineModels(sequelize);
+
+// Get Route Data
+const loginRoutes = getLoginRoutes(models.User);
+const logoutRoutes = getLogoutRoutes();
+const signupRoutes = getSignupRoutes(models.User);
+const dogRoutes = getDogRoutes(models.User, models.Dog);
+
+//define sessions
 app.use(
   session({
     store: new SequelizeStore({
@@ -35,206 +49,32 @@ app.use(
       checkExpirationInterval: 15 * 60 * 1000, // The interval at which to cleanup expired sessions in milliseconds.
       expiration: 24 * 60 * 60 * 1000, // The maximum age (in milliseconds) of a valid session.
     }),
-    secret: 'this is secret',
+    secret: process.env.BCRYPT_SECRET,
     saveUninitialized: true,
     resave: false,
   })
 );
 
-//defining the User model
-const User = sequelize.define(
-  'users',
-  {
-    firstname: {
-      type: Sequelize.STRING,
-    },
-    lastname: {
-      type: Sequelize.STRING,
-    },
-    email: {
-      type: Sequelize.STRING,
-      unique: true,
-    },
-    password: {
-      type: Sequelize.STRING,
-      unique: true,
-    },
-    phone: {
-      type: Sequelize.STRING,
-    },
-    region: {
-      type: Sequelize.STRING,
-    },
-  },
+// Routes
+app.use('/login', loginRoutes);
+app.use('/logout', logoutRoutes);
+app.use('/signup', signupRoutes);
+app.use('/dog', dogRoutes);
 
-  {
-    timestamps: false,
-  }
-);
-
-//defining the User model
-const Dog = sequelize.define(
-  'dogs',
-  {
-    name: {
-      type: Sequelize.STRING,
-    },
-    breed: {
-      type: Sequelize.STRING,
-    },
-    age: {
-      type: Sequelize.STRING,
-    },
-    gender: {
-      type: Sequelize.STRING,
-    },
-    description: {
-      type: Sequelize.TEXT,
-    },
-  },
-  {
-    timestamps: false,
-  }
-);
-
-User.hasMany(Dog);
-Dog.belongsTo(User);
-
-app.get('/login', (req, res) => {
-  const message = req.query.message;
-  res.render('login', { message });
-});
-
-//signup route
-app.get('/signup', (req, res) => {
-  const regions = nlRegions.regions;
-  const message = req.query.message;
-  res.render('signup', { regions, message });
-});
-
-//post request signup
-app.post('/signup', (req, res) => {
-  //all fields are required
-  if (
-    !req.body.fname ||
-    !req.body.lname ||
-    !req.body.email ||
-    !req.body.password ||
-    !req.body.phone ||
-    !req.body.region
-  ) {
-    res.redirect(
-      '/signup?message=' + encodeURIComponent('All fields are required')
-    );
-  }
-  //find a user with that username
-  User.findOne({
-    where: {
-      email: req.body.email,
-    },
+sequelize
+  .sync({ force: true })
+  .then(() => {
+    const server = app.listen(3000, () => {
+      console.log('App listening on port: ' + server.address().port);
+    });
   })
-    .then(user => {
-      //if mail is already taken, then send an error
-      if (user) {
-        return res.redirect(
-          '/signup?message=' +
-            encodeURIComponent(
-              'An account with that email is already registered'
-            )
-        );
-      }
-    })
-    .catch(err => {
-      console.log(err);
-    });
-
-  const password = req.body.password;
-  bcrypt
-    .hash(password, 8)
-    .then(hash => {
-      return User.create({
-        //populate the user table using an encrypted password
-        firstname: req.body.fname,
-        lastname: req.body.lname,
-        email: req.body.email,
-        password: hash,
-        phone: req.body.phone,
-        region: req.body.region,
-      });
-    })
-    .then(user => {
-      req.session.user = user;
-      res.redirect(`/profile/${user.id}`);
-    })
-    .catch(err => {
-      console.log(err);
-    });
-});
-
-//post request login
-app.post('/login', (req, res) => {
-  const email = req.body.email;
-  const password = req.body.password;
-  //email and password is needed
-
-  if (!email) {
-    res.redirect(
-      '/login?message=' +
-        encodeURIComponent('Please fill out your email address.')
-    );
-  }
-  if (!password) {
-    res.redirect(
-      '/login?message=' + encodeURIComponent('Please fill out your password.')
-    );
-  }
-
-  //find the user with the email from the req
-  User.findOne({
-    where: {
-      email: email,
-    },
-  })
-    .then(user => {
-      if (user) {
-        bcrypt.compare(password, user.password).then(isValidPassword => {
-          if (isValidPassword) {
-            req.session.user = user;
-            res.redirect(`/profile/${user.id}`);
-          } else {
-            //if the password is incorrect, send a message
-            res.redirect(
-              '/login?message=' + encodeURIComponent('Invalid  password.')
-            );
-          }
-        });
-      } else {
-        //if user does not exist, send a message
-        res.redirect(
-          '/login?message=' + encodeURIComponent('User does not exist')
-        );
-      }
-    })
-    .catch(error => {
-      console.error(error);
-    });
-});
-
-//logout route
-app.get('/logout', (req, res) => {
-  req.session.destroy(error => {
-    if (error) {
-      throw error;
-    }
-    res.redirect('/?message=' + encodeURIComponent('You are logged out.'));
-  });
-});
+  .catch(error => console.log('This error occured', error));
 
 app.get('/profile/:id', (req, res) => {
   const userSessionData = req.session.user;
   const userSessionId = req.session.user.id;
   const id = req.params.id;
-  User.findAll({
+  models.User.findAll({
     where: {
       id: id,
     },
@@ -244,7 +84,7 @@ app.get('/profile/:id', (req, res) => {
         '/404?error=' + encodeURIComponent('That profile does not exist')
       );
     } else {
-      Dog.findAll({
+      models.Dog.findAll({
         where: {
           userId: userSessionId,
         },
@@ -252,51 +92,6 @@ app.get('/profile/:id', (req, res) => {
         res.render('profile', { userSessionData, dogs });
       });
     }
-  });
-});
-
-app.get('/create-dog-profile', (req, res) => {
-  const breeds = dogBreeds.dogs;
-  res.render('create-dog-profile', { breeds });
-});
-
-app.post('/create-dog-profile', (req, res) => {
-  const userEmail = req.session.user.email;
-  const user = req.session.user;
-  User.findOne({
-    where: {
-      email: userEmail,
-    },
-  })
-    .then(user => {
-      //populate dog table with user relation
-      return user.createDog({
-        name: req.body.name,
-        breed: req.body.breed,
-        age: req.body.age,
-        gender: req.body.gender,
-        description: req.body.description,
-      });
-    })
-    .then(post => {
-      res.redirect(`/profile/${user.id}`);
-    })
-    .catch(err => {
-      console.log(err);
-    });
-});
-
-//render each dog details
-app.get('/dog-profile/:id', (req, res) => {
-  const userSession = req.session.user;
-  const dogId = req.params.id;
-  Dog.findAll({
-    where: {
-      id: dogId,
-    },
-  }).then(dog => {
-    const dogData = dog[0];
-    res.render('dog-profile', { dog: dogData });
   });
 });
 
@@ -310,12 +105,3 @@ app.get('/404', (req, res) => {
   const error = req.query.error;
   res.render('404', { error });
 });
-
-sequelize
-  .sync()
-  .then(() => {
-    const server = app.listen(3000, () => {
-      console.log('App listening on port: ' + server.address().port);
-    });
-  })
-  .catch(error => console.log('This error occured', error));

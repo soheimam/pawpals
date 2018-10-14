@@ -16,15 +16,15 @@
     <%= userSessionData.firstname %>, to your dashboard or whatever we want to call this?</h1>
   <%  if (!dogs.length) { %>
   <p>You haven't registered any dogs yet!</p>
-  <a href='/create-dog-profile'>Create a dog profile</a>
+  <a href='/dog/new'>Create a dog profile</a>
   <% } else { %>
   <p>Here are your furry babies</p>
   <% dogs.forEach(dog => { %>
-  <a href="/dog-profile/<%= dog.id %>">
+  <a href="/dog/<%= dog.id %>">
     <%= dog.name %>
   </a>
   <% }) %>
-  <a href='/create-dog-profile'>Register a new dog</a>
+  <a href='/dog/new'>Register a new dog</a>
 
   <% } %>
 
