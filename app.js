@@ -21,6 +21,7 @@ const defineModels = require('./models/index.js');
 const getLoginRoutes = require('./routes/login.js');
 const getLogoutRoutes = require('./routes/logout.js');
 const getSignupRoutes = require('./routes/signup.js');
+const getUserRoutes = require('./routes/user.js');
 const getDogRoutes = require('./routes/dog.js');
 
 //db config
@@ -39,6 +40,7 @@ const models = defineModels(sequelize);
 const loginRoutes = getLoginRoutes(models.User);
 const logoutRoutes = getLogoutRoutes();
 const signupRoutes = getSignupRoutes(models.User);
+const userRoutes = getUserRoutes(models.User, models.Dog);
 const dogRoutes = getDogRoutes(models.User, models.Dog);
 
 //define sessions
@@ -59,41 +61,17 @@ app.use(
 app.use('/login', loginRoutes);
 app.use('/logout', logoutRoutes);
 app.use('/signup', signupRoutes);
+app.use('/user', userRoutes);
 app.use('/dog', dogRoutes);
 
 sequelize
-  .sync({ force: true })
+  .sync()
   .then(() => {
     const server = app.listen(3000, () => {
       console.log('App listening on port: ' + server.address().port);
     });
   })
   .catch(error => console.log('This error occured', error));
-
-app.get('/profile/:id', (req, res) => {
-  const userSessionData = req.session.user;
-  const userSessionId = req.session.user.id;
-  const id = req.params.id;
-  models.User.findAll({
-    where: {
-      id: id,
-    },
-  }).then(user => {
-    if (!user.length) {
-      res.redirect(
-        '/404?error=' + encodeURIComponent('That profile does not exist')
-      );
-    } else {
-      models.Dog.findAll({
-        where: {
-          userId: userSessionId,
-        },
-      }).then(dogs => {
-        res.render('profile', { userSessionData, dogs });
-      });
-    }
-  });
-});
 
 //render landingpage
 app.get('/', (req, res) => {
