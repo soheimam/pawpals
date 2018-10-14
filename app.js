@@ -2,8 +2,17 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const session = require('express-session');
-const Sequelize = require('sequelize');
+const { db } = require('./models');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
+
+// defining routes
+const homeRoutes = require('./routes/home.js');
+const loginRoutes = require('./routes/login.js');
+const logoutRoutes = require('./routes/logout.js');
+const signupRoutes = require('./routes/signup.js');
+const userRoutes = require('./routes/user.js');
+const dogRoutes = require('./routes/dog.js');
+const notFoundRoutes = require('./routes/404.js');
 
 //environment vars
 require('dotenv').config();
@@ -14,35 +23,11 @@ app.set('view engine', 'ejs');
 //bodyparser
 app.use(bodyParser.urlencoded({ extended: false }));
 
-//assigning the module exports from models/index to a const
-const defineModels = require('./models/index.js');
-
-//defining routes
-const homeRoutes = require('./routes/home.js');
-const loginRoutes = require('./routes/login.js');
-const logoutRoutes = require('./routes/logout.js');
-const signupRoutes = require('./routes/signup.js');
-const userRoutes = require('./routes/user.js');
-const dogRoutes = require('./routes/dog.js');
-const notFoundRoutes = require('./routes/404.js');
-
-//db config
-const sequelize = new Sequelize({
-  database: process.env.DB_NAME,
-  username: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  dialect: 'postgres',
-  storage: './session.postgres',
-});
-
-// Define DB Models
-const models = defineModels(sequelize);
-
 //define sessions
 app.use(
   session({
     store: new SequelizeStore({
-      db: sequelize,
+      db: db,
       checkExpirationInterval: 15 * 60 * 1000, // The interval at which to cleanup expired sessions in milliseconds.
       expiration: 24 * 60 * 60 * 1000, // The maximum age (in milliseconds) of a valid session.
     }),
@@ -53,16 +38,15 @@ app.use(
 );
 
 // Routes
-app.use('/', homeRoutes());
-app.use('/login', loginRoutes(models.User));
-app.use('/logout', logoutRoutes());
-app.use('/signup', signupRoutes(models.User));
-app.use('/user', userRoutes(models.User, models.Dog));
-app.use('/dog', dogRoutes(models.User, models.Dog));
-app.use('*', notFoundRoutes());
+app.use('/', homeRoutes);
+app.use('/login', loginRoutes);
+app.use('/logout', logoutRoutes);
+app.use('/signup', signupRoutes);
+app.use('/user', userRoutes);
+app.use('/dog', dogRoutes);
+app.use('*', notFoundRoutes);
 
-sequelize
-  .sync()
+db.sync()
   .then(() => {
     const server = app.listen(3000, () => {
       console.log(`App listening on port: ${server.address().port}`);

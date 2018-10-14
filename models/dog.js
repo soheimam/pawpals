@@ -1,23 +1,21 @@
-const Sequelize = require('sequelize');
-
-module.exports = sequelize => {
+module.exports = (sequelize, type) => {
   return sequelize.define(
     'dogs',
     {
       name: {
-        type: Sequelize.STRING,
+        type: type.STRING,
       },
       breed: {
-        type: Sequelize.STRING,
+        type: type.STRING,
       },
       age: {
-        type: Sequelize.STRING,
+        type: type.STRING,
       },
       gender: {
-        type: Sequelize.STRING,
+        type: type.STRING,
       },
       description: {
-        type: Sequelize.TEXT,
+        type: type.TEXT,
       },
     },
     {

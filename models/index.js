@@ -1,17 +1,29 @@
+const Sequelize = require('sequelize');
 const userModel = require('./user.js');
 const dogModel = require('./dog.js');
 
-module.exports = sequelize => {
-  // Declare Models
-  const User = userModel(sequelize);
-  const Dog = dogModel(sequelize);
+//environment vars
+require('dotenv').config();
 
-  // Establish relations
-  User.hasMany(Dog);
-  Dog.belongsTo(User);
+//db config
+const db = new Sequelize({
+  database: process.env.DB_NAME,
+  username: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  dialect: 'postgres',
+  storage: './session.postgres',
+});
 
-  return {
-    User,
-    Dog,
-  };
+// Declare Models
+const User = userModel(db, Sequelize);
+const Dog = dogModel(db, Sequelize);
+
+// Establish relations
+User.hasMany(Dog);
+Dog.belongsTo(User);
+
+module.exports = {
+  db,
+  User,
+  Dog,
 };
