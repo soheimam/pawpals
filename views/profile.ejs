@@ -12,6 +12,7 @@
 
 <body>
   <a href="/logout">logout</a>
+  <%= message %>
   <h1>Welcome
     <%= userSessionData.firstname %>, to your dashboard or whatever we want to call this?</h1>
   <%  if (!dogs.length) { %>
@@ -27,6 +28,8 @@
   <a href='/dog/new'>Register a new dog</a>
 
   <% } %>
+
+
 
   <script type="text/javascript" src=""></script>
 </body>

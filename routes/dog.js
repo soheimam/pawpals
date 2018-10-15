@@ -48,16 +48,53 @@ const newDogPOST = (req, res) => {
     });
 };
 
-const editDogGET = (req, res) => {};
+const editDogGET = (req, res) => {
+  const breeds = dogBreeds.dogs;
+  const dogId = req.params.id;
+  res.render('edit-dog-profile', { breeds, dogId });
+};
 
-const editDogPUT = (req, res) => {};
+const editDog = (req, res) => {
+  const dogId = req.params.id;
+  Dog.update(
+    {
+      name: req.body.name,
+      breed: req.body.breed,
+      age: req.body.age,
+      gender: req.body.gender,
+      description: req.body.description,
+    },
+    {
+      where: {
+        id: dogId,
+      },
+    }
+  ).then(() => {
+    res.redirect(`/dog/${dogId}`);
+  });
+};
 
-const deleteDog = (req, res) => {};
+const deleteDog = (req, res) => {
+  const userSession = req.session.user;
+  const dogId = req.params.id;
+
+  Dog.destroy({
+    where: {
+      id: dogId,
+    },
+  }).then(dog => {
+    res.redirect(
+      `/user/${userSession.id}?message=${encodeURIComponent(
+        'Dog was successfully deleted'
+      )}`
+    );
+  });
+};
 
 module.exports = router
   .get('/new', newDogGET)
   .post('/new', newDogPOST)
   .get('/:id', getDogProfile)
   .get('/:id/edit', editDogGET)
-  .put('/:id/edit', editDogPUT)
-  .delete('/:id/delete', deleteDog);
+  .post('/:id/edit', editDog)
+  .post('/:id/delete', deleteDog);

@@ -65,6 +65,7 @@ const getUserProfile = (req, res) => {
   const userSessionData = req.session.user;
   const userSessionId = req.session.user.id;
   const id = req.params.id;
+  const message = req.query.message;
   User.findAll({
     where: {
       id: id,
@@ -80,7 +81,7 @@ const getUserProfile = (req, res) => {
           userId: userSessionId,
         },
       }).then(dogs => {
-        res.render('profile', { userSessionData, dogs });
+        res.render('profile', { userSessionData, dogs, message });
       });
     }
   });
