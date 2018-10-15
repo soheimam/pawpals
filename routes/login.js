@@ -31,7 +31,7 @@ const post = (req, res) => {
         bcrypt.compare(password, user.password).then(isValidPassword => {
           if (isValidPassword) {
             req.session.user = user;
-            res.redirect(`/profile/${user.id}`);
+            res.redirect(`/user/${user.id}`);
           } else {
             //if the password is incorrect, send a message
             res.redirect(
