@@ -26,6 +26,7 @@
   <p>Description:
     <%= dog.description %>
   </p>
+  <img src=<%=dog.imageUrl %>>
 
   <a href='/dog/<%= dog.id %>/edit'>Edit</a>
   <form method="POST" action='/dog/<%= dog.id %>/delete'>

@@ -17,6 +17,9 @@ module.exports = (sequelize, type) => {
       description: {
         type: type.TEXT,
       },
+      imageUrl: {
+        type: type.STRING,
+      },
     },
     {
       timestamps: false,

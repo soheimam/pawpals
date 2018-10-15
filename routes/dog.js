@@ -3,6 +3,33 @@ const router = express.Router();
 const { User, Dog } = require('../models');
 //requiring json data for select dropdowns
 const dogBreeds = require('../data/json/breeds.json');
+//upload images packages
+const aws = require('aws-sdk');
+const multer = require('multer');
+const multerS3 = require('multer-s3');
+// instantiating new s3 client
+const s3 = new aws.S3({ apiVersion: '2006-03-01' });
+
+// upload file
+const upload = multer({
+  storage: multerS3({
+    s3: s3,
+    bucket: process.env.BUCKET_NAME,
+    //we are defining the name of the object that will be stored in s3
+    // we need to wrap the key value in a callback function, because.. req.body does not exist
+    // at this point in time, since we are not even in a route.. req.body comes from forms.
+    // the function on key will run as part of the middleware on whichever route we add this too.
+    // Thus, req will be populated and the key will have the right value
+    key: function(req, file, cb) {
+      // https://www.npmjs.com/package/multer-s3
+      cb(null, `${req.body.name}_${req.body.breed}.png`);
+    },
+    metadata: function(req, file, cb) {
+      cb(null, { fieldName: file.fieldname });
+    },
+    acl: 'public-read', // Make the image uploaded available to the world to view
+  }),
+});
 
 const getDogProfile = (req, res) => {
   const userSession = req.session.user;
@@ -23,6 +50,7 @@ const newDogGET = (req, res) => {
 };
 
 const newDogPOST = (req, res) => {
+  const url = req.file.location;
   const userEmail = req.session.user.email;
   const user = req.session.user;
   User.findOne({
@@ -38,6 +66,7 @@ const newDogPOST = (req, res) => {
         age: req.body.age,
         gender: req.body.gender,
         description: req.body.description,
+        imageUrl: url,
       });
     })
     .then(dog => {
@@ -93,7 +122,7 @@ const deleteDog = (req, res) => {
 
 module.exports = router
   .get('/new', newDogGET)
-  .post('/new', newDogPOST)
+  .post('/new', upload.single('file-upload'), newDogPOST)
   .get('/:id', getDogProfile)
   .get('/:id/edit', editDogGET)
   .post('/:id/edit', editDog)

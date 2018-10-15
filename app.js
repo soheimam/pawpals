@@ -1,9 +1,17 @@
+//environment vars
+require('dotenv').config();
+
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const { db } = require('./models');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
+
+//upload images packages
+const aws = require('aws-sdk');
+const multer = require('multer');
+const multerS3 = require('multer-s3');
 
 // defining routes
 const homeRoutes = require('./routes/home.js');
@@ -14,8 +22,6 @@ const userRoutes = require('./routes/user.js');
 const dogRoutes = require('./routes/dog.js');
 const notFoundRoutes = require('./routes/404.js');
 
-//environment vars
-require('dotenv').config();
 //get the static files
 app.use(express.static('public'));
 //set ejs
@@ -23,7 +29,10 @@ app.set('view engine', 'ejs');
 //bodyparser
 app.use(bodyParser.urlencoded({ extended: false }));
 
-//define sessions
+// instantiating new s3 client
+const s3 = new aws.S3({ apiVersion: '2006-03-01' });
+
+//define session
 app.use(
   session({
     store: new SequelizeStore({
@@ -46,7 +55,7 @@ app.use('/user', userRoutes);
 app.use('/dog', dogRoutes);
 app.use('*', notFoundRoutes);
 
-db.sync()
+db.sync({ force: true })
   .then(() => {
     const server = app.listen(3000, () => {
       console.log(`App listening on port: ${server.address().port}`);
