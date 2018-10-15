@@ -292,7 +292,6 @@ var upload = multer({
 })
 
 app.post('/create-dog-profile', upload.single('file-upload'), (req, res) => {
-  console.log(req.file)
   const url = req.file.location
   const userEmail = req.session.user.email;
   const user = req.session.user;
