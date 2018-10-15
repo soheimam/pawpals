@@ -8,11 +8,6 @@ const session = require('express-session');
 const { db } = require('./models');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
-//upload images packages
-const aws = require('aws-sdk');
-const multer = require('multer');
-const multerS3 = require('multer-s3');
-
 // defining routes
 const homeRoutes = require('./routes/home.js');
 const loginRoutes = require('./routes/login.js');
@@ -28,9 +23,6 @@ app.use(express.static('public'));
 app.set('view engine', 'ejs');
 //bodyparser
 app.use(bodyParser.urlencoded({ extended: false }));
-
-// instantiating new s3 client
-const s3 = new aws.S3({ apiVersion: '2006-03-01' });
 
 //define session
 app.use(
@@ -55,7 +47,7 @@ app.use('/user', userRoutes);
 app.use('/dog', dogRoutes);
 app.use('*', notFoundRoutes);
 
-db.sync({ force: true })
+db.sync()
   .then(() => {
     const server = app.listen(3000, () => {
       console.log(`App listening on port: ${server.address().port}`);
