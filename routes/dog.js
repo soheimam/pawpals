@@ -39,8 +39,13 @@ const getDogProfile = (req, res) => {
       id: dogId,
     },
   }).then(dog => {
-    const dogData = dog[0];
-    res.render('dog-profile', { dog: dogData });
+    if (!dog.length) {
+      res.status(400);
+      res.render('404', { error: 'This dog does not exist' });
+    } else {
+      const dogData = dog[0];
+      res.render('dog-profile', { dog: dogData });
+    }
   });
 };
 
