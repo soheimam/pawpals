@@ -12,7 +12,7 @@
 
 <body>
   <h1>Create your dog profile </h1>
-  <form method="POST" action="/create-dog-profile" autocomplete="off">
+  <form method="POST" action="/create-dog-profile" autocomplete="off" enctype="multipart/form-data">
     <label for="dog-name"> Dog Name</label>
     <input type="text" id="dog-name" name="name" required>
 
@@ -37,6 +37,11 @@
     <label for="description"> Description </label>
     <textarea id="description" name="description" required>
     </textarea>
+
+    <label for="upload">Upload an image of your dog</label>
+    <input name="file-upload" type="file"/>
+
+    
     <button type="submit" class="nice">Create profile </button>
 
   </form>

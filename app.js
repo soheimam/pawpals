@@ -1,6 +1,11 @@
+require('dotenv').config();
+
+const bodyParser = require('body-parser');
+const aws = require('aws-sdk')
 const express = require('express');
 const app = express();
-const bodyParser = require('body-parser');
+const multer = require('multer')
+const multerS3 = require('multer-s3')
 const session = require('express-session');
 const Sequelize = require('sequelize');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
@@ -8,6 +13,9 @@ const bcrypt = require('bcrypt');
 
 //get the css files
 app.use(express.static('public'));
+
+// we instantiating new s3 client
+const s3 = new aws.S3({apiVersion: '2006-03-01'})
 
 //set ejs
 app.set('view engine', 'ejs');
@@ -18,7 +26,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 const dogBreeds = require('./data/json/breeds.json');
 const nlRegions = require('./data/json/nlregions.json');
 
-require('dotenv').config();
+
 //db config
 const sequelize = new Sequelize({
   database: process.env.DB_NAME,
@@ -91,6 +99,9 @@ const Dog = sequelize.define(
     description: {
       type: Sequelize.TEXT,
     },
+    imageUrl: {
+      type: Sequelize.STRING,
+    }
   },
   {
     timestamps: false,
@@ -260,7 +271,29 @@ app.get('/create-dog-profile', (req, res) => {
   res.render('create-dog-profile', { breeds });
 });
 
-app.post('/create-dog-profile', (req, res) => {
+// upload file
+var upload = multer({
+  storage: multerS3({
+    s3: s3,
+    bucket: process.env.BUCKET_NAME,
+    //we are defining the name of the object that will be stored in s3
+    // we need to wrap the key value in a callback function, because.. req.body does not exist
+    // at this point in time, since we are not even in a route.. req.body comes from forms.
+    // the function on key will run as part of the middleware on whichever route we add this too.
+    // Thus, req will be populated and the key will have the right value
+    key: function (req, file, cb) { // https://www.npmjs.com/package/multer-s3
+      cb(null,`${req.body.name}_${req.body.breed}_${req.body.age}.png`)
+    },
+    metadata: function (req, file, cb) {
+      cb(null, {fieldName: file.fieldname});
+    },
+    acl: 'public-read' // Make the image uploaded available to the world to view
+  })
+})
+
+app.post('/create-dog-profile', upload.single('file-upload'), (req, res) => {
+  console.log(req.file)
+  const url = req.file.location
   const userEmail = req.session.user.email;
   const user = req.session.user;
   User.findOne({
@@ -276,6 +309,7 @@ app.post('/create-dog-profile', (req, res) => {
         age: req.body.age,
         gender: req.body.gender,
         description: req.body.description,
+        imageUrl: url
       });
     })
     .then(post => {
