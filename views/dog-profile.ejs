@@ -11,10 +11,16 @@
 </head>
 
 <body>
+  <%  if (dog.userId === user.id) { %>
   <nav>
     <a href="/user/<%= user.id %>">back to your profile</a>
+    <a href="/dogs/all">see all dogs</a>
   </nav>
-
+  <%} else {%>
+  <nav>
+    <a href="/dogs/all">back to all dogs</a>
+  </nav>
+  <%} %>
 
   <h1>
     <%= dog.name %>'s details</h1>
@@ -30,13 +36,15 @@
   <p>Description:
     <%= dog.description %>
   </p>
-  <img src=<%=dog.imageUrl %>>
-
-  <a href='/dog/<%= dog.id %>/edit'>Edit</a>
-  <form method="POST" action='/dog/<%= dog.id %>/delete'>
-    <button type="submit">Delete Dog</button>
-  </form>
-
+  <img src=<%=dog.imageUrl %>
+  <%  if (dog.userId === user.id) { %>
+  <div class="actions">
+    <a href='/dog/<%= dog.id %>/edit'>Edit</a>
+    <form method="POST" action='/dog/<%= dog.id %>/delete'>
+      <button type="submit">Delete Dog</button>
+    </form>
+  </div>
+  <%} %>
 
 
   <script type="text/javascript" src=""></script>

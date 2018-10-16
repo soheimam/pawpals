@@ -16,3 +16,8 @@ a {
   display: block;
   padding: 5px 0;
 }
+
+ul,
+li {
+  list-style: none;
+}

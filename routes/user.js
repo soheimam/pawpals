@@ -72,7 +72,6 @@ const getUserProfile = (req, res) => {
     },
   }).then(user => {
     if (!user.length) {
-      // TODO: Do this for the dog profile as well
       res.status(400);
       res.render('404', { error: 'This user does not exist' });
     } else {

@@ -22,7 +22,7 @@
   <p>You haven't registered any dogs yet!</p>
   <a href='/dog/new'>Create a dog profile</a>
   <% } else { %>
-  <p>Here are your furry babies</p>
+  <p>Here are your furry babies:</p>
   <% dogs.forEach(dog => { %>
   <a href="/dog/<%= dog.id %>">
     <%= dog.name %>
