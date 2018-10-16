@@ -12,8 +12,35 @@
 
 <body>
 
+  <h1> Here are all the doggos
+  </h1>
+  <% dogs.forEach(dog => { %>
+  <div>
+    <ul>
+      <li>
+        <h1>
+          <%= dog.name%>
+        </h1>
+      </li>
+      <li>
+        <%= dog.breed%>
+      </li>
+      <li>
+        <%= dog.age%>
+      </li>
+      <li>
+        <%= dog.gender%>
+      </li>
+    </ul>
+    <img src="<%= dog.imageUrl%>">
 
-  <script src="" async defer></script>
+
+  </div>
+
+
+  <% }) %>
+
+  <script type="text/javascript" src=""></script>
 </body>
 
 </html>

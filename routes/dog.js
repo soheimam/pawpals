@@ -44,7 +44,7 @@ const getDogProfile = (req, res) => {
       res.render('404', { error: 'This dog does not exist' });
     } else {
       const dogData = dog[0];
-      res.render('dog-profile', { dog: dogData });
+      res.render('dog-profile', { dog: dogData, user: userSession });
     }
   });
 };
