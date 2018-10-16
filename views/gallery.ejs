@@ -10,34 +10,40 @@
   <link href="/css/main.css" rel="stylesheet" type="text/css">
 </head>
 
-<body>
+<body class="allDogs">
 
   <h1> Here are all the doggos
   </h1>
   <H3>Filter your search</H3>
-  <form method="POST" action="/dogs/all" autocomplete="off">
+  <form method="GET" action="/dogs/all" autocomplete="off">
     <label for="dog-breed"> Breed</label>
     <select name="breed" id="breeds">
       <option value='all'>All</option>
       <% breeds.forEach(b => { %>
-      <option value="<%= b%>">
+      <option value="<%= b%>" <% if(b==breed) { %>selected
+        <% } %>>
         <%= b%>
       </option>
       <% }) %>
     </select>
 
     <label for="dog-age">Age </label>
-    <input type="number" step="any" name="age" placeholder="age in years">
+    <input type="number" step="any" name="age" placeholder="age in years" value="<% age %>">
 
     <label for="dog-gender">Gender </label>
     <select name="gender">
       <option value='all'>All</option>
-      <option value="Female">Female</option>
-      <option value="Male">Male </option>
+      <option value="Female" <% if (gender==='Female' ) { %>selected
+        <% } %>>Female</option>
+      <option value="Male" <% if (gender==='Male' ) { %>selected
+        <% } %>>Male </option>
     </select>
     <button type="submit">Filter</button>
 
   </form>
+  <% if(!dogs.length) {%>
+  <h3>Sorry, no dogs found</h3>
+  <%} %>
   <% dogs.forEach(dog => { %>
   <a href='/dog/<%= dog.id %>'>
     <div>

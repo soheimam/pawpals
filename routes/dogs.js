@@ -7,32 +7,29 @@ const breeds = dogBreeds.dogs;
 
 const getAllDogs = (req, res) => {
   const userSession = req.session.user;
-  Dog.findAll().then(dogs => {
-    res.render('gallery', { dogs, breeds });
-  });
-};
-const filterDogs = (req, res) => {
-  const userSession = req.session.user;
-  let breed = req.body.breed;
-  let age = req.body.age;
-  let gender = req.body.gender;
-  let options = { where: {} };
-  if (breed) {
-    if (breed !== 'all') {
-      options.where.breed = breed;
-    }
+  const breed = req.query.breed || '';
+  const gender = req.query.gender || '';
+  const age = req.query.age || '';
+
+  const options = {
+    where: {},
+  };
+
+  if (breed && breed !== 'all') {
+    options.where.breed = breed;
   }
+
+  if (gender && gender !== 'all') {
+    options.where.gender = gender;
+  }
+
   if (age) {
     options.where.age = age;
   }
-  if (gender) {
-    if (gender !== 'all') {
-      options.where.gender = gender;
-    }
-  }
+
   Dog.findAll(options).then(dogs => {
-    console.log(dogs);
-    res.render('gallery', { dogs, breeds });
+    res.render('gallery', { dogs, breeds, breed, age, gender });
   });
 };
-module.exports = router.get('/all', getAllDogs).post('/all', filterDogs);
+
+module.exports = router.get('/all', getAllDogs);
