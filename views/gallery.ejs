@@ -18,6 +18,7 @@
   <form method="POST" action="/dogs/all" autocomplete="off">
     <label for="dog-breed"> Breed</label>
     <select name="breed" id="breeds">
+      <option value='all'>All</option>
       <% breeds.forEach(b => { %>
       <option value="<%= b%>">
         <%= b%>
@@ -30,6 +31,7 @@
 
     <label for="dog-gender">Gender </label>
     <select name="gender">
+      <option value='all'>All</option>
       <option value="Female">Female</option>
       <option value="Male">Male </option>
     </select>

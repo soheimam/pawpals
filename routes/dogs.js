@@ -4,6 +4,7 @@ const { User, Dog } = require('../models');
 //requiring json data for select dropdowns
 const dogBreeds = require('../data/json/breeds.json');
 const breeds = dogBreeds.dogs;
+
 const getAllDogs = (req, res) => {
   const userSession = req.session.user;
   Dog.findAll().then(dogs => {
@@ -17,13 +18,17 @@ const filterDogs = (req, res) => {
   let gender = req.body.gender;
   let options = { where: {} };
   if (breed) {
-    options.where.breed = breed;
+    if (breed !== 'all') {
+      options.where.breed = breed;
+    }
   }
   if (age) {
     options.where.age = age;
   }
   if (gender) {
-    options.where.gender = gender;
+    if (gender !== 'all') {
+      options.where.gender = gender;
+    }
   }
   Dog.findAll(options).then(dogs => {
     console.log(dogs);
