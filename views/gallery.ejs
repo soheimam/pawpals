@@ -15,7 +15,7 @@
   <h1> Here are all the doggos
   </h1>
   <H3>Filter your search</H3>
-  <form method="GET" action="/dogs/all" autocomplete="off">
+  <form method="GET" action="/dogs" autocomplete="off">
     <label for="dog-breed"> Breed</label>
     <select name="breed" id="breeds">
       <option value='all'>All</option>
@@ -43,16 +43,17 @@
   </form>
   <% if(!dogs.length) {%>
   <h3>Sorry, no dogs found</h3>
-  <%} %>
-  <% dogs.forEach(dog => { %>
-  <a href='/dog/<%= dog.id %>'>
-    <div>
+  <%} else { %>
+  <ol>
+    <% dogs.forEach(dog => { %>
+    <li>
+      <a href='/dog/<%= dog.id %>'>
+        <h1>
+          <%= dog.name%>
+        </h1>
+        <img src="<%= dog.imageUrl%>">
+      </a>
       <ul>
-        <li>
-          <h1>
-            <%= dog.name%>
-          </h1>
-        </li>
         <li>
           <%= dog.breed%>
         </li>
@@ -63,12 +64,10 @@
           <%= dog.gender%>
         </li>
       </ul>
-      <img src="<%= dog.imageUrl%>">
-    </div>
-  </a>
-
-
-  <% }) %>
+    </li>
+    <% }) %>
+  </ol>
+  <% } %>
 
   <script type="text/javascript" src=""></script>
 </body>

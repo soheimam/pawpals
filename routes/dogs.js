@@ -32,4 +32,4 @@ const getAllDogs = (req, res) => {
   });
 };
 
-module.exports = router.get('/all', getAllDogs);
+module.exports = router.get('/', getAllDogs);
