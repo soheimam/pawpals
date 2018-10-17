@@ -21,7 +21,9 @@ ul,
 li {
   list-style: none;
 }
-
+button {
+  cursor: pointer;
+}
 #deleteModal {
   display: none;
   position: fixed;

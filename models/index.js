@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const userModel = require('./user.js');
 const dogModel = require('./dog.js');
-
+const matchModel = require('./match.js');
 //environment vars
 require('dotenv').config();
 
@@ -17,13 +17,17 @@ const db = new Sequelize({
 // Declare Models
 const User = userModel(db, Sequelize);
 const Dog = dogModel(db, Sequelize);
+const Match = matchModel(db, Sequelize);
 
 // Establish relations
 User.hasMany(Dog);
 Dog.belongsTo(User);
+User.hasMany(Match);
+Dog.hasMany(Match);
 
 module.exports = {
   db,
   User,
   Dog,
+  Match,
 };
