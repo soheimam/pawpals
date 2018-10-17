@@ -38,6 +38,11 @@ const getDogProfile = (req, res) => {
     where: {
       id: dogId,
     },
+    include: [
+      {
+        model: User,
+      },
+    ],
   }).then(dog => {
     if (!dog.length) {
       res.status(400);

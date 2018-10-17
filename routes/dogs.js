@@ -13,6 +13,11 @@ const getAllDogs = (req, res) => {
 
   const options = {
     where: {},
+    include: [
+      {
+        model: User,
+      },
+    ],
   };
 
   if (breed && breed !== 'all') {

@@ -28,7 +28,7 @@
     </select>
 
     <label for="dog-age">Age </label>
-    <input type="number" step="any" name="age" placeholder="Age in years" value="<%= age %>" autocomplete='true'>
+    <input type="number" step="any" name="age" placeholder="Age in years" value="<%= age %>">
 
     <label for="dog-gender">Gender </label>
     <select name="gender">
@@ -62,6 +62,9 @@
         </li>
         <li>
           <%= dog.gender%>
+        </li>
+        <li>
+          <%= dog.user.region%>
         </li>
       </ul>
     </li>
