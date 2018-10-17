@@ -14,28 +14,35 @@
   <h1>Edit your dog profile </h1>
   <form method="POST" action="/dog/<%= dogId %>/edit" autocomplete="off">
     <label for="dog-name"> Dog Name</label>
-    <input type="text" id="dog-name" name="name" required>
+    <input type="text" id="dog-name" name="name" value="<%= name%>" required>
 
     <label for="dog-breed"> Dog Breed</label>
     <select name="breed" id="breeds" required>
       <% breeds.forEach(b => { %>
-      <option value="<%= b%>">
+      <option value="<%= b%>" <% if(b===breed) { %>selected
+        <% } %>>
         <%= b%>
       </option>
       <% }) %>
     </select>
 
     <label for="dog-age">Dog Age </label>
-    <input type="number" step="any" id="age" name="age" placeholder="age in years" required>
+    <input type="number" step="any" id="age" name="age" placeholder="age in years" value="<%= age%>" required>
 
     <label for="dog-gender"> Dog Gender </label>
     <select name="gender" required>
-      <option value="Female">Female</option>
-      <option value="Male">Male </option>
+      <option value="Female" <% if (gender==='Female' ) { %>selected
+        <% } %>>Female</option>
+      <option value="Male" <% if (gender==='Male' ) { %>selected
+        <% } %>>Male </option>
     </select>
 
     <label for="description"> Description </label>
-    <textarea id="description" name="description" required></textarea>
+    <textarea id="description" name="description" required><%= description%></textarea>
+    <img src="<%= url%>">
+    <label for="upload">Edit the image</label>
+    <input name="file-upload" type="file" />
+
     <button type="submit" class="nice">Save changes</button>
 
   </form>

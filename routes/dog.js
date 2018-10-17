@@ -85,7 +85,28 @@ const newDogPOST = (req, res) => {
 const editDogGET = (req, res) => {
   const breeds = dogBreeds.dogs;
   const dogId = req.params.id;
-  res.render('edit-dog-profile', { breeds, dogId });
+  Dog.findAll({
+    where: {
+      id: dogId,
+    },
+  }).then(dog => {
+    const name = dog[0].name;
+    const breed = dog[0].breed;
+    const age = dog[0].age;
+    const gender = dog[0].gender;
+    const description = dog[0].description;
+    const url = dog[0].imageUrl;
+    res.render('edit-dog-profile', {
+      breeds,
+      dogId,
+      name,
+      breed,
+      age,
+      gender,
+      description,
+      url,
+    });
+  });
 };
 
 const editDog = (req, res) => {
