@@ -4,17 +4,6 @@
 
 <body>
   <%- include('partials/navigation') %>
-  <%  if (dog.userId === user.id) { %>
-  <nav>
-    <a href="/user/<%= user.id %>">back to your profile</a>
-    <a href="/dogs">see all dogs</a>
-  </nav>
-  <%} else {%>
-  <nav>
-    <a href="/dogs">back to all dogs</a>
-  </nav>
-  <%} %>
-
   <h1>
     <%= dog.name %>'s details</h1>
   <p>Breed:

@@ -5,12 +5,9 @@
 <body>
   <%- include('partials/navigation') %>
   <% if(userSession && userSession.id){%>
-  <nav>
-    <a href="/user/<%= userSession.id %>">Go to profile</a>
-    <a href="/dogs">See all the doggos</a>
-  </nav>
+    <h1>Welcome <%= userSession.firstname %>. See <a href="/user/<%= userSession.id %>">your profile</a></h1>
   <%} %>
-  <h1>Hello this is our landing page</h1>
+    <h1>Hello this is our landing page</h1>
 
   <%- include('partials/footer') %>
 

@@ -4,15 +4,25 @@
     <ul>
       <% if (userSession && userSession.id) { %>
         <li>
-          <a href="/logout">Logout
-      </a> </li> <% } else { %>
+          <a href="/user/<%=userSession.id%>">My Profile</a>
+        </li>
+        <li>
+          <a href="/dogs">All Dogs</a>
+        </li>
+        <li>
+          <a href="/dog/new">Add Dog</a>
+        </li>
+        <li>
+          <a href="/logout">Logout</a>
+        </li>
+    <% } else { %>
       <li>
         <a href="/login">Login</a>
       </li>
       <li>
         <a href="/signup">Signup</a>
       </li>
-      <% } %>
-      </ul>
-      </nav>
+    <% } %>
+    </ul>
+  </nav>
 </div>
