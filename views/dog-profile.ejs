@@ -3,6 +3,7 @@
 <%- include('partials/head', { title: 'Dog profile' }) %>
 
 <body>
+  <%- include('partials/navigation') %>
   <%  if (dog.userId === user.id) { %>
   <nav>
     <a href="/user/<%= user.id %>">back to your profile</a>

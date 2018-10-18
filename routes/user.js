@@ -62,7 +62,7 @@ const newUserPOST = (req, res) => {
 };
 
 const getUserProfile = (req, res) => {
-  const userSessionData = req.session.user;
+  const userSessionData = req.session.user || {};
   const userSessionId = req.session.user.id;
   const id = req.params.id;
   const message = req.query.message;
@@ -80,7 +80,7 @@ const getUserProfile = (req, res) => {
           userId: userSessionId,
         },
       }).then(dogs => {
-        res.render('profile', { userSessionData, dogs, message });
+        res.render('profile', { userSession: userSessionData, dogs, message });
       });
     }
   });

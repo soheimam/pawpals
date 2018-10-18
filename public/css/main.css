@@ -21,9 +21,11 @@ ul,
 li {
   list-style: none;
 }
+
 button {
   cursor: pointer;
 }
+
 #deleteModal {
   display: none;
   position: fixed;
@@ -36,4 +38,23 @@ button {
   overflow: hidden;
   background: white;
   padding-top: 150px;
+}
+
+#navbar {
+  display: flex;
+  justify-content: space-between;
+}
+
+#navbar ul {
+  display: flex;
+  justify-content: flex-end;
+}
+
+#navbar li {
+  margin-left: 10px;
+}
+
+#footer {
+  text-align: right;
+  margin-top: 20px;
 }

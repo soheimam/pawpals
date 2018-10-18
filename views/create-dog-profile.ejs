@@ -3,6 +3,7 @@
 <%- include('partials/head', { title: 'Create dog' }) %>
 
 <body>
+  <%- include('partials/navigation') %>
   <h1>Create your dog profile </h1>
   <form method="POST" action="/dog/new" autocomplete="off" enctype="multipart/form-data">
     <label for="dog-name"> Dog Name</label>

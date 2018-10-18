@@ -32,7 +32,7 @@ const upload = multer({
 });
 
 const getDogProfile = (req, res) => {
-  const userSession = req.session.user;
+  const userSession = req.session.user || {};
   const dogId = req.params.id;
   Dog.findAll({
     where: {
@@ -49,14 +49,19 @@ const getDogProfile = (req, res) => {
       res.render('404', { error: 'This dog does not exist' });
     } else {
       const dogData = dog[0];
-      res.render('dog-profile', { dog: dogData, user: userSession || {} });
+      res.render('dog-profile', {
+        dog: dogData,
+        user: userSession || {},
+        userSession,
+      });
     }
   });
 };
 
 const newDogGET = (req, res) => {
   const breeds = dogBreeds.dogs;
-  res.render('create-dog-profile', { breeds });
+  const userSession = req.session.user || {};
+  res.render('create-dog-profile', { breeds, userSession });
 };
 
 const newDogPOST = (req, res) => {
@@ -101,6 +106,7 @@ const editDogGET = (req, res) => {
     const gender = dog[0].gender;
     const description = dog[0].description;
     const url = dog[0].imageUrl;
+    const userSession = req.session.user || {};
     res.render('edit-dog-profile', {
       breeds,
       dogId,
@@ -110,6 +116,7 @@ const editDogGET = (req, res) => {
       gender,
       description,
       url,
+      userSession,
     });
   });
 };
@@ -135,7 +142,7 @@ const editDog = (req, res) => {
 };
 
 const deleteDog = (req, res) => {
-  const userSession = req.session.user;
+  const userSession = req.session.user || {};
   const dogId = req.params.id;
 
   Dog.destroy({

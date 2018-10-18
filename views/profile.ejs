@@ -3,15 +3,15 @@
 <%- include('partials/head', { title: 'User profile' }) %>
 
 <body>
+  <%- include('partials/navigation') %>
   <nav>
     <a href='/dog/new'>Register a new dog</a>
     <a href='/dogs'>View all doggos</a>
-    <a href="/logout">logout</a>
   </nav>
 
   <%= message %>
   <h1>Welcome
-    <%= userSessionData.firstname %>, to your dashboard or whatever we want to call this?</h1>
+    <%= userSession.firstname %>, to your dashboard or whatever we want to call this?</h1>
   <%  if (!dogs.length) { %>
   <p>You haven't registered any dogs yet!</p>
   <a href='/dog/new'>Create a dog profile</a>

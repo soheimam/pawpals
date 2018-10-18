@@ -6,7 +6,7 @@ const dogBreeds = require('../data/json/breeds.json');
 const breeds = dogBreeds.dogs;
 
 const getAllDogs = (req, res) => {
-  const userSession = req.session.user;
+  const userSession = req.session.user || {};
   const breed = req.query.breed || '';
   const gender = req.query.gender || '';
   const age = req.query.age || '';
@@ -40,13 +40,14 @@ const matchDogs = (req, res) => {
   const userThatLiked = req.body.sessionId;
   const likedDog = req.body.dogId;
   const likedDogOwner = req.body.ownerId;
+  const userSession = req.session.user || {};
   Match.create({
     userThatLiked,
     likedDog,
     likedDogOwner,
     accepted: false,
   }).then(() => {
-    res.redirect('/dogs');
+    res.redirect('/dogs', { userSession });
   });
 };
 

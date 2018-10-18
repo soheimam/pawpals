@@ -5,7 +5,8 @@ const { User } = require('../models');
 
 const get = (req, res) => {
   const message = req.query.message;
-  res.render('login', { message });
+  const userSession = req.session.user || {};
+  res.render('login', { message, userSession });
 };
 
 const post = (req, res) => {

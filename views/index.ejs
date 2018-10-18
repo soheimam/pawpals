@@ -3,16 +3,11 @@
 <%- include('partials/head', { title: 'Home' }) %>
 
 <body>
+  <%- include('partials/navigation') %>
   <% if(userSession && userSession.id){%>
   <nav>
     <a href="/user/<%= userSession.id %>">Go to profile</a>
     <a href="/dogs">See all the doggos</a>
-    <a href="/logout">Logout</a>
-  </nav>
-  <%} else {%>
-  <nav>
-    <a href="/signup">Sign up</a>
-    <a href="/login">Login</a>
   </nav>
   <%} %>
   <h1>Hello this is our landing page</h1>
