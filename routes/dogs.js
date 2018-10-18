@@ -44,6 +44,7 @@ const matchDogs = (req, res) => {
     userThatLiked,
     likedDog,
     likedDogOwner,
+    accepted: false,
   }).then(() => {
     res.redirect('/dogs');
   });

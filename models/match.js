@@ -11,6 +11,9 @@ module.exports = (sequelize, type) => {
       likedDogOwner: {
         type: type.STRING,
       },
+      accepted: {
+        type: type.BOOLEAN,
+      },
     },
 
     {

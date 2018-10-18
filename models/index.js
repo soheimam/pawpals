@@ -22,8 +22,6 @@ const Match = matchModel(db, Sequelize);
 // Establish relations
 User.hasMany(Dog);
 Dog.belongsTo(User);
-User.hasMany(Match);
-Dog.hasMany(Match);
 
 module.exports = {
   db,

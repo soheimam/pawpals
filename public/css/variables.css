@@ -1,0 +1,13 @@
+:root {
+  /* Example variables */
+  --first-color: #488cff;
+  --second-color: #ffff8c;
+  /*
+    example usage
+    .foo {
+      color: var(--first-color);
+    }
+
+    more at https://developer.mozilla.org/en-US/docs/Web/CSS/--*
+  */
+}
