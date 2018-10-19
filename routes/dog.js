@@ -11,21 +11,25 @@ const multerS3 = require('multer-s3');
 const s3 = new aws.S3({ apiVersion: '2006-03-01' });
 
 // upload file
-const multerConfig = {
+const upload = multer({
   storage: multerS3({
     s3: s3,
     bucket: process.env.BUCKET_NAME,
+    //we are defining the name of the object that will be stored in s3
+    // we need to wrap the key value in a callback function, because.. req.body does not exist
+    // at this point in time, since we are not even in a route.. req.body comes from forms.
+    // the function on key will run as part of the middleware on whichever route we add this too.
+    // Thus, req will be populated and the key will have the right value
     key: function(req, file, cb) {
-      cb(null, `${req.body.name}_${req.body.breed}.png`);
+      // https://www.npmjs.com/package/multer-s3
+      cb(null, `${req.body.name}_${req.body.breed}_${Date.now()}.png`);
     },
     metadata: function(req, file, cb) {
       cb(null, { fieldName: file.fieldname });
     },
-    acl: 'public-read',
+    acl: 'public-read', // Make the image uploaded available to the world to view
   }),
-};
-const uploadCreateDog = multer(multerConfig);
-const uploadEditDog = multer(multerConfig);
+});
 
 const getDogProfile = (req, res) => {
   const userSession = req.session.user || {};
@@ -117,9 +121,10 @@ const editDogGET = (req, res) => {
   });
 };
 
-const editDog = (req, res) => {
+const editDogPOST = (req, res) => {
   const dogId = req.params.id;
   const url = req.file.location;
+
   Dog.update(
     {
       name: req.body.name,
@@ -158,8 +163,8 @@ const deleteDog = (req, res) => {
 
 module.exports = router
   .get('/new', newDogGET)
-  .post('/new', uploadCreateDog.single('file-upload'), newDogPOST)
+  .post('/new', upload.single('file-upload'), newDogPOST)
   .get('/:id', getDogProfile)
   .get('/:id/edit', editDogGET)
-  .post('/:id/edit', uploadEditDog.single('file-upload'), editDog)
+  .post('/:id/edit', upload.single('file-upload'), editDogPOST)
   .post('/:id/delete', deleteDog);

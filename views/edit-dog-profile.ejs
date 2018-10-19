@@ -5,7 +5,7 @@
 <body>
   <%- include('partials/navigation') %>
   <h1>Edit your dog profile </h1>
-  <form method="POST" action="/dog/<%= dogId %>/edit" autocomplete="off">
+  <form method="POST" action="/dog/<%= dogId %>/edit" autocomplete="off" enctype="multipart/form-data">
     <label for="dog-name"> Dog Name</label>
     <input type="text" id="dog-name" name="name" value="<%= name%>" required>
 
@@ -32,7 +32,6 @@
 
     <label for="description"> Description </label>
     <textarea id="description" name="description" required><%= description%></textarea>
-    <img src="<%= url%>">
 
     <label for="upload">Edit the image</label>
     <input id="upload" name="file-upload" type="file" />
