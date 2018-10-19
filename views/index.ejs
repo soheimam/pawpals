@@ -1,22 +1,15 @@
 <!DOCTYPE html>
 
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title></title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="/css/normalize.css" rel="stylesheet" type="text/css">
-  <link href="/css/main.css" rel="stylesheet" type="text/css">
-</head>
+<%- include('partials/head', { title: 'Home' }) %>
 
 <body>
-  <nav>
-    <a href="/signup">Sign up</a>
-    <a href="/login">Login</a>
-  </nav>
-  <h1>Hello this is our landing page</h1>
+  <%- include('partials/navigation') %>
+  <% if(userSession && userSession.id){%>
+    <h1>Welcome <%= userSession.firstname %>. See <a href="/user/<%= userSession.id %>">your profile</a></h1>
+  <%} %>
+    <h1>Hello this is our landing page</h1>
 
+  <%- include('partials/footer') %>
 
 </body>
 

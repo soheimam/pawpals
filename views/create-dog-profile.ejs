@@ -1,16 +1,9 @@
 <!DOCTYPE html>
 
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title></title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="/css/normalize.css" rel="stylesheet" type="text/css">
-  <link href="/css/main.css" rel="stylesheet" type="text/css">
-</head>
+<%- include('partials/head', { title: 'Create dog' }) %>
 
 <body>
+  <%- include('partials/navigation') %>
   <h1>Create your dog profile </h1>
   <form method="POST" action="/dog/new" autocomplete="off" enctype="multipart/form-data">
     <label for="dog-name"> Dog Name</label>
@@ -38,12 +31,12 @@
     <textarea id="description" name="description" required></textarea>
 
     <label for="upload">Upload an image of your dog</label>
-    <input name="file-upload" type="file" />
+    <input id="upload" name="file-upload" type="file" />
     <button type="submit" class="nice">Create profile </button>
 
   </form>
 
-  <script type="text/javascript" src=""></script>
+  <%- include('partials/footer') %>
 </body>
 
 </html>

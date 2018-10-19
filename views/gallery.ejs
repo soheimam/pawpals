@@ -1,19 +1,80 @@
 <!DOCTYPE html>
 
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title></title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="/css/normalize.css" rel="stylesheet" type="text/css">
-  <link href="/css/main.css" rel="stylesheet" type="text/css">
-</head>
+<%- include('partials/head', { title: 'Dogs' }) %>
 
-<body>
+<body class="allDogs">
+  <%- include('partials/navigation') %>
+  <h1> Here are all the doggos
+  </h1>
+  <H3>Filter your search</H3>
+  <form method="GET" action="/dogs" autocomplete="off">
+    <label for="dog-breed"> Breed</label>
+    <select name="breed" id="breeds">
+      <option value='all'>All</option>
+      <% breeds.forEach(b => { %>
+      <option value="<%= b%>" <% if(b==breed) { %>selected
+        <% } %>>
+        <%= b%>
+      </option>
+      <% }) %>
+    </select>
 
+    <label for="dog-age">Age </label>
+    <input type="number" step="any" name="age" placeholder="Age in years" value="<%= age %>">
 
-  <script src="" async defer></script>
+    <label for="dog-gender">Gender </label>
+    <select name="gender">
+      <option value='all'>All</option>
+      <option value="Female" <% if (gender==='Female' ) { %>selected
+        <% } %>>Female</option>
+      <option value="Male" <% if (gender==='Male' ) { %>selected
+        <% } %>>Male </option>
+    </select>
+    <button type="submit">Filter</button>
+
+  </form>
+  <% if(!dogs.length) {%>
+  <h3>Sorry, no dogs found</h3>
+  <%} else { %>
+  <ol>
+    <% dogs.forEach(dog => { %>
+    <li>
+      <a href='/dog/<%= dog.id %>'>
+        <h1>
+          <%= dog.name%>
+        </h1>
+        <img src="<%= dog.imageUrl%>">
+      </a>
+      <ul>
+        <li>
+          <%= dog.breed%>
+        </li>
+        <li>
+          <%= dog.age%>
+        </li>
+        <li>
+          <%= dog.gender%>
+        </li>
+        <li>
+          <%= dog.user.region%>
+
+        </li>
+      </ul>
+    </li>
+    <% if(userSession && userSession.id !== dog.userId){%>
+    <li class="actions">
+      <form method="POST" action="/dogs/match">
+        <input name="dogId" type="hidden" value="<%= dog.id%>">
+        <input name="ownerId" type="hidden" value="<%= dog.user.id%>">
+        <button type="submit">Match</button>
+      </form>
+    </li>
+    <%}%>
+    <% }) %>
+  </ol>
+  <% } %>
+
+  <%- include('partials/footer') %>
 </body>
 
 </html>

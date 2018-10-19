@@ -1,11 +1,8 @@
 require('dotenv').config();
 
 const bodyParser = require('body-parser');
-const aws = require('aws-sdk')
 const express = require('express');
 const app = express();
-const multer = require('multer')
-const multerS3 = require('multer-s3')
 const session = require('express-session');
 const { db } = require('./models');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
@@ -18,21 +15,16 @@ const signupRoutes = require('./routes/signup.js');
 const userRoutes = require('./routes/user.js');
 const dogRoutes = require('./routes/dog.js');
 const notFoundRoutes = require('./routes/404.js');
+const allDogsRoutes = require('./routes/dogs.js');
+const allMsgRoutes = require('./routes/message.js');
 
 //get the static files
 app.use(express.static('public'));
-// we instantiating new s3 client
-const s3 = new aws.S3({apiVersion: '2006-03-01'})
 
 //set ejs
 app.set('view engine', 'ejs');
 //bodyparser
 app.use(bodyParser.urlencoded({ extended: false }));
-
-//requiring json data
-const dogBreeds = require('./data/json/breeds.json');
-const nlRegions = require('./data/json/nlregions.json');
-
 
 app.use(
   session({
@@ -54,6 +46,8 @@ app.use('/logout', logoutRoutes);
 app.use('/signup', signupRoutes);
 app.use('/user', userRoutes);
 app.use('/dog', dogRoutes);
+app.use('/dogs', allDogsRoutes);
+app.use('/message', allMsgRoutes);
 app.use('*', notFoundRoutes);
 
 db.sync()

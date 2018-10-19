@@ -3,8 +3,8 @@ const router = express.Router();
 
 //render landingpage
 const get = (req, res) => {
-  // TODO: Check if session exists. If yes, redirect to user profile and change header to show logout
-  res.render('index');
+  const userSession = req.session.user || {};
+  res.render('index', { userSession });
 };
 
 module.exports = router.get('/', get);

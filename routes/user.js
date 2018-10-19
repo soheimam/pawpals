@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
-const { User, Dog } = require('../models');
+const { User, Dog, Match } = require('../models');
 
 //create a new user from the signup form
 const newUserPOST = (req, res) => {
@@ -62,7 +62,7 @@ const newUserPOST = (req, res) => {
 };
 
 const getUserProfile = (req, res) => {
-  const userSessionData = req.session.user;
+  const userSessionData = req.session.user || {};
   const userSessionId = req.session.user.id;
   const id = req.params.id;
   const message = req.query.message;
@@ -70,9 +70,14 @@ const getUserProfile = (req, res) => {
     where: {
       id: id,
     },
+    include: [
+      {
+        model: Match,
+      },
+    ],
   }).then(user => {
+    const matchRequest = user[0].matches;
     if (!user.length) {
-      // TODO: Do this for the dog profile as well
       res.status(400);
       res.render('404', { error: 'This user does not exist' });
     } else {
@@ -81,7 +86,12 @@ const getUserProfile = (req, res) => {
           userId: userSessionId,
         },
       }).then(dogs => {
-        res.render('profile', { userSessionData, dogs, message });
+        res.render('profile', {
+          userSession: userSessionData,
+          dogs,
+          message,
+          matchRequest,
+        });
       });
     }
   });

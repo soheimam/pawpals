@@ -1,37 +1,44 @@
 <!DOCTYPE html>
 
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title></title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="/css/normalize.css" rel="stylesheet" type="text/css">
-  <link href="/css/main.css" rel="stylesheet" type="text/css">
-</head>
+<%- include('partials/head', { title: 'User profile' }) %>
 
 <body>
-  <a href="/logout">logout</a>
+  <%- include('partials/navigation') %>
+
   <%= message %>
   <h1>Welcome
-    <%= userSessionData.firstname %>, to your dashboard or whatever we want to call this?</h1>
+    <%= userSession.firstname %>, to your dashboard or whatever we want to call this?</h1>
+  <!--Match request-->
+  <%  if (matchRequest.length) { %>
+    <p>You have a message request from:</p>
+    <% matchRequest.forEach(match => { %>
+       <div><%= match.nameOfUserThatLiked %></div>
+       <form method="POST" action="/message/accept">
+        <input type="hidden" value="<%= userSession.id %>" name="userThatAccepts">
+        <input type="hidden" value="<%= match.iDofUserThatLiked %>" name="userThatRequested">
+        <button type="submit">Accept</button>
+      </form>
+  <% }) %>
+  <% } %>
+
   <%  if (!dogs.length) { %>
   <p>You haven't registered any dogs yet!</p>
   <a href='/dog/new'>Create a dog profile</a>
   <% } else { %>
-  <p>Here are your furry babies</p>
+  <p>Here are your furry babies:</p>
   <% dogs.forEach(dog => { %>
   <a href="/dog/<%= dog.id %>">
     <%= dog.name %>
   </a>
   <% }) %>
-  <a href='/dog/new'>Register a new dog</a>
+
+
 
   <% } %>
 
 
 
-  <script type="text/javascript" src=""></script>
+  <%- include('partials/footer') %>
 </body>
 
 </html>
