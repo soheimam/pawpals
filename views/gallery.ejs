@@ -66,7 +66,6 @@
       <form method="POST" action="/dogs/match">
         <input name="dogId" type="hidden" value="<%= dog.id%>">
         <input name="ownerId" type="hidden" value="<%= dog.user.id%>">
-        <input name="sessionId" type="hidden" value="<%= userSession.id%>">
         <button type="submit">Match</button>
       </form>
     </li>

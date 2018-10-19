@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
-const { User, Dog } = require('../models');
+const { User, Dog, Match } = require('../models');
 
 //create a new user from the signup form
 const newUserPOST = (req, res) => {
@@ -70,7 +70,13 @@ const getUserProfile = (req, res) => {
     where: {
       id: id,
     },
+    include: [
+      {
+        model: Match,
+      },
+    ],
   }).then(user => {
+    const matchRequest = user[0].matches;
     if (!user.length) {
       res.status(400);
       res.render('404', { error: 'This user does not exist' });
@@ -80,7 +86,12 @@ const getUserProfile = (req, res) => {
           userId: userSessionId,
         },
       }).then(dogs => {
-        res.render('profile', { userSession: userSessionData, dogs, message });
+        res.render('profile', {
+          userSession: userSessionData,
+          dogs,
+          message,
+          matchRequest,
+        });
       });
     }
   });

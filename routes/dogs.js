@@ -36,18 +36,23 @@ const getAllDogs = (req, res) => {
     res.render('gallery', { dogs, breeds, breed, age, gender, userSession });
   });
 };
+
 const matchDogs = (req, res) => {
-  const userThatLiked = req.body.sessionId;
   const likedDog = req.body.dogId;
   const likedDogOwner = req.body.ownerId;
   const userSession = req.session.user || {};
+  const fullnameofuserthatliked = `${req.session.user.firstname} ${
+    req.session.user.lastname
+  }`;
+
   Match.create({
-    userThatLiked,
-    likedDog,
-    likedDogOwner,
+    iDofUserThatLiked: req.session.user.id,
+    nameOfUserThatLiked: fullnameofuserthatliked,
+    dogId: likedDog,
+    userId: likedDogOwner,
     accepted: false,
   }).then(() => {
-    res.redirect('/dogs', { userSession });
+    res.redirect('/dogs');
   });
 };
 

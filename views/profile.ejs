@@ -8,6 +8,19 @@
   <%= message %>
   <h1>Welcome
     <%= userSession.firstname %>, to your dashboard or whatever we want to call this?</h1>
+  <!--Match request-->
+  <%  if (matchRequest.length) { %>
+    <p>You have a message request from:</p>
+    <% matchRequest.forEach(match => { %>
+       <div><%= match.nameOfUserThatLiked %></div>
+       <form method="POST" action="/message/accept">
+        <input type="hidden" value="<%= userSession.id %>" name="userThatAccepts">
+        <input type="hidden" value="<%= match.iDofUserThatLiked %>" name="userThatRequested">
+        <button type="submit">Accept</button>
+      </form>
+  <% }) %>
+  <% } %>
+
   <%  if (!dogs.length) { %>
   <p>You haven't registered any dogs yet!</p>
   <a href='/dog/new'>Create a dog profile</a>

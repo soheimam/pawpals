@@ -2,13 +2,10 @@ module.exports = (sequelize, type) => {
   return sequelize.define(
     'matches',
     {
-      userThatLiked: {
+      iDofUserThatLiked: {
         type: type.STRING,
       },
-      likedDog: {
-        type: type.STRING,
-      },
-      likedDogOwner: {
+      nameOfUserThatLiked: {
         type: type.STRING,
       },
       accepted: {

@@ -16,6 +16,7 @@ const userRoutes = require('./routes/user.js');
 const dogRoutes = require('./routes/dog.js');
 const notFoundRoutes = require('./routes/404.js');
 const allDogsRoutes = require('./routes/dogs.js');
+const allMsgRoutes = require('./routes/message.js');
 
 //get the static files
 app.use(express.static('public'));
@@ -46,6 +47,7 @@ app.use('/signup', signupRoutes);
 app.use('/user', userRoutes);
 app.use('/dog', dogRoutes);
 app.use('/dogs', allDogsRoutes);
+app.use('/message', allMsgRoutes);
 app.use('*', notFoundRoutes);
 
 db.sync()

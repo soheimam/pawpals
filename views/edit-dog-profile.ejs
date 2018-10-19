@@ -32,6 +32,8 @@
 
     <label for="description"> Description </label>
     <textarea id="description" name="description" required><%= description%></textarea>
+    <img src="<%= url%>">
+    <input type="hidden" value="<%= url%>" name="url">
 
     <label for="upload">Edit the image</label>
     <input id="upload" name="file-upload" type="file" />

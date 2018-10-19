@@ -123,8 +123,8 @@ const editDogGET = (req, res) => {
 
 const editDogPOST = (req, res) => {
   const dogId = req.params.id;
-  const url = req.file.location;
 
+  let url = req.file ? req.file.location : req.body.url;
   Dog.update(
     {
       name: req.body.name,
