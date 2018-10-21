@@ -1,41 +1,45 @@
 <!DOCTYPE html>
 
-<%- include('partials/head', { title: 'User profile' }) %>
+<%- include('partials/dashboard', { title: 'User profile' }) %>
+
 
 <body>
   <%- include('partials/navigation') %>
+  
 
-  <%= message %>
-  <h1>Welcome
-    <%= userSession.firstname %>, to your dashboard or whatever we want to call this?</h1>
-  <!--Match request-->
-  <%  if (matchRequest.length) { %>
-    <p>You have a message request from:</p>
-    <% matchRequest.forEach(match => { %>
-       <div><%= match.nameOfUserThatLiked %></div>
-       <form method="POST" action="/message/accept">
-        <input type="hidden" value="<%= userSession.id %>" name="userThatAccepts">
-        <input type="hidden" value="<%= match.iDofUserThatLiked %>" name="userThatRequested">
-        <button type="submit">Accept</button>
-      </form>
-  <% }) %>
-  <% } %>
+  <div class="wrapper">
+      <h1 class="block"> Welcome <%= userSession.firstname %> </h1>
+  <div class="grid">
+  
+    <div class="square edit"><a href='/dog/messages'><h3>Edit profile</h3></a> 
 
-  <%  if (!dogs.length) { %>
-  <p>You haven't registered any dogs yet!</p>
-  <a href='/dog/new'>Create a dog profile</a>
-  <% } else { %>
-  <p>Here are your furry babies:</p>
-  <% dogs.forEach(dog => { %>
-  <a href="/dog/<%= dog.id %>">
-    <%= dog.name %>
-  </a>
-  <% }) %>
+    </div>
+    <%  if (dogs.length) { %>
+      <div class="square messages"><a href='/dog/messages'> <h3>Messages</h3> </a></div>
+    
+      <div class="square matches"> <h3>Matches</h3>
+    </div>
 
+    <% dogs.map(dog => { %>
+    <div class="square profile" style="background-image: url(<%= dog.imageUrl %>); background-repeat: no-repeat; background-position:center center; background-size:cover; opacity: 0.5;"   > <h3><%= dog.name %> Profile</h3>
+      
+    </div>
+    <% }) %> 
+    <% } else { %>
+      <div class="square"> <a href='/dog/new'>Create a dog profile</a>
+      
+      </div>
+      <% } %>   
 
+      <div class="square search"> <h3>Search
+        </h3>
+        
+      </div>
+  
 
-  <% } %>
+    
 
+  </div>
 
 
   <%- include('partials/footer') %>

@@ -88,7 +88,7 @@ const getUserProfile = (req, res) => {
       }).then(dogs => {
         res.render('profile', {
           userSession: userSessionData,
-          dogs,
+          dogs: dogs,
           message,
           matchRequest,
         });

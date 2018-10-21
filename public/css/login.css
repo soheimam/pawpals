@@ -1,0 +1,110 @@
+.login-wrapper {
+    margin-top: 10px;
+    display: grid;
+    overflow: hidden;
+    max-width: 1200px;
+    margin: 0 auto;
+    grid-template-columns: minmax(300px, 20.33%);
+    grid-template-rows: repeat(7, 80px);
+    grid-auto-flow: row;
+    grid-template-areas: "aside aside header header header"
+        "aside aside email email ."
+        "aside aside email-input email-input . "
+        ". . password password . "
+        ". . password-input password-input ."
+        ". . button . . ";
+}
+
+
+.actions a{
+    text-decoration: none;
+    color:rgb(255,216,0);
+}
+
+aside {
+    grid-area: aside;
+    background-color: #f9f7f7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 600px;
+    height: 600px;
+    padding: 65px 80px 80px 80px;
+}
+
+h1 {
+    grid-area: header;
+}
+
+.login {
+    grid-area: login;
+}
+
+.email {
+    grid-area: email;
+    align-self: end;
+}
+
+.user-email {
+    grid-area: email-input;
+    height: 50%;
+    align-self: end;
+}
+
+.password {
+    grid-area: password;
+    align-self: end;
+}
+
+.user-password {
+    grid-area: password-input;
+    height: 50%;
+    align-self: end;
+}
+.button {
+    grid-area: button;
+    justify-self: start;
+}
+button, input[type="submit"], input[type="reset"] {
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+}
+
+
+.button  {
+    background: rgb(255,216,0);
+    background: linear-gradient(90deg, rgba(255,216,0,1) 0%, rgba(244,220,89,1) 35%);
+    background-repeat: no-repeat;
+    background-size: 100% 0.2em;
+    background-position: 0 88%;
+    transition: background-size 0.25s ease-in;
+    font-size:20px;
+    font-family:'Raleway', sans-serif;
+    font-weight: 600;
+    color:var(--black-color);
+    letter-spacing: 2px;
+    text-decoration: none;
+  }
+  .button:hover {
+    background-size: 100% 88%;
+  } 
+
+  /* sign up container */
+  .container{
+   max-width: 1170px;
+   margin: 120px auto;
+   padding: 1em;
+ }
+ 
+ .form{
+   display:grid;
+   grid-template-columns:1fr;
+   grid-gap: 30px;
+   width:600px;
+   z-index:3;
+ }
