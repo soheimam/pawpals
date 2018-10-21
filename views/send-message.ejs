@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+
+<%- include('partials/head', { title: 'Messages' }) %>
+
+<body>
+  <%- include('partials/navigation') %>
+  <form method="POST" action="/message %>">
+    <label for="message"> Conversation about the dog </label>
+    <!--Aqui rendereo todos los mensajes que halla-->
+    <input type="text-area" id="message" name="message">
+    <input type="hidden" name="senderId" value="1" />
+    <input type="hidden" name="receiverId" value="3" />
+    <button type="submit">Send</button>
+  </form>
+
+  <%- include('partials/footer') %>
+</body>
+
+</html>

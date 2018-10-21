@@ -15,7 +15,7 @@
     <% matchRequest.forEach(match => { %>
       <div class="accept">
         <h3><%= match.nameOfUserThatLiked %> liked <%= match.dog.name%> </h3>
-        <form method="POST" action="/message/update-status">
+        <form method="POST" action="/conversations/update-status">
           <input type="hidden" value="<%= userSession.id %>" name="userId">
           <input type="hidden" value="<%= match.iDofUserThatLiked %>" name="userThatRequested">
           <input type="hidden" value="<%= match.nameOfUserThatLiked %>" name="nameThatReq">
@@ -25,7 +25,7 @@
         </form>
       </div>
       <div class="reject">
-        <form method="POST" action="/message/update-status">
+        <form method="POST" action="/conversations/update-status">
           <input type="hidden" value="<%= userSession.id %>" name="userId">
           <input type="hidden" value="<%= match.iDofUserThatLiked %>" name="userThatRequested">
           <input type="hidden" value="<%= match.nameOfUserThatLiked %>" name="nameThatReq">
