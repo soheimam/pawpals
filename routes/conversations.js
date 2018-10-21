@@ -60,27 +60,61 @@ const conversationsGet = (req, res) => {
       },
     ],
   }).then(conversations => {
-    console.log(conversations[0].user.firstname);
-    console.log(conversations[0].owner.firstname);
     res.render('all-conversations', { userSession, conversations });
   });
 };
 const sendMesssageGet = (req, res) => {
   const userSession = req.session.user;
-  res.render('send-message', { userSession });
+  const id = req.params.id;
+  Conversation.findOne({
+    where: {
+      id,
+    },
+    include: [
+      {
+        model: User,
+        as: 'owner',
+      },
+      {
+        model: User,
+        as: 'user',
+      },
+      {
+        model: Dog,
+      },
+      {
+        model: Message,
+        where: {
+          conversationId: id,
+        },
+        required: false,
+      },
+    ],
+  }).then(conversation => {
+    const otherUser =
+      userSession.id === conversation.owner.id ? 'user' : 'owner';
+
+    res.render('send-message', { userSession, conversation, otherUser });
+  });
 };
 const sendMesssagePOST = (req, res) => {
   const message = req.body.message;
+  const id = req.params.id;
+  const senderId = req.body.senderId;
+  const receiverId = req.body.receiverId;
 
   Message.create({
+    conversationId: id,
     message,
+    senderId,
+    receiverId,
   }).then(result => {
-    res.redirect(`/messages`);
+    res.redirect(`/conversations/${id}`);
   });
 };
 
 module.exports = router
   .post('/update-status', updateReqStatusPOST)
   .get('/', conversationsGet)
-  .get('/', sendMesssageGet)
-  .get('/', sendMesssagePOST);
+  .get('/:id', sendMesssageGet)
+  .post('/:id', sendMesssagePOST);

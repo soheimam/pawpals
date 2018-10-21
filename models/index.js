@@ -30,6 +30,7 @@ Dog.hasMany(Match);
 User.hasMany(Match);
 Match.belongsTo(User);
 Match.belongsTo(Dog);
+User.hasMany(Conversation);
 Conversation.belongsTo(User, {
   as: 'owner',
   foreignKey: 'ownerId',
@@ -49,6 +50,7 @@ Message.belongsTo(User, {
   foreignKey: 'receiverId',
 });
 
+Conversation.hasMany(Message);
 Message.belongsTo(Conversation);
 
 module.exports = {
