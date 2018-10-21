@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css?family=Karla');
+
+.wrapper{
+  display:flex;
+  justify-content:center;
+  flex-wrap: wrap;
+  /* margin-top: 20px; */
+  margin:0 20px 0 0 auto;
+}
+
+.grid{
+  flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
+  flex-wrap:wrap;
+}
+
+
+.square{
+  width: 250px;
+  height: 250px;
+  margin:10px;
+  background-color:#f4dc59;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden
+}
+.block{
+  width:100%; 
+}
+.square h3{
+  align-self: center ;
+}
+.dog-img{
+width: 100%;
+opacity:0.5;
+}
+
+.edit{
+  background-image: url(/images/edit@2x.png);
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+.search{
+  background-image: url(/images/search@2x.png);
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+.search{
+  background-image: url(/images/messages@2x.png);
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+.matches{
+  background-image: url(/images/heart@2x.png);
+  background-repeat: no-repeat;
+  background-position: center center;
+}

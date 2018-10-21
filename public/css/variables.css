@@ -1,7 +1,8 @@
 :root {
   /* Example variables */
-  --first-color: #488cff;
-  --second-color: #ffff8c;
+  --yellow-color: #ffbe51;
+  --black-color: #000000;
+  --smoke-color: #f9f7f7;
   /*
     example usage
     .foo {

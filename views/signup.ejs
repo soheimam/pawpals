@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 
-<%- include('partials/head', { title: 'Signup' }) %>
+<%- include('partials/form', { title: 'Signup' }) %>
 
 <body>
   <%- include('partials/navigation') %>
   <%= message %>
-  <h1>Sign up </h1>
+  <div class="container">
+  <form method="POST" action="/user/new" autocomplete="off" class="form">
+    
+    <h1>Sign up </h1>
   <p>Please fill in the following fields:</p>
-  <form method="POST" action="/user/new" autocomplete="off">
+
     <label for="fname"> First Name</label>
     <input type="text" id="fname" name="fname" required>
     <label for="lname"> Last Name</label>
@@ -29,15 +32,15 @@
     <input type="email" id="email" name="email" required>
     <label for="password" minlength="6" maxlength="6"> Password</label>
     <input type="password" id="password" name="password" required>
-    <button type="submit">Sign Up </button>
+    <button type="submit" class="button">Sign Up </button>
   </form>
   <div class="actions">
     <p>Already have an account?</p>
     <a href="/login">Login</a>
   </div>
-
+</div>
   <%- include('partials/footer') %>
-
+</div>
 </body>
 
 </html>
