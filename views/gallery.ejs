@@ -34,44 +34,55 @@
 
   </form>
   <% if(!dogs.length) {%>
-  <h3>Sorry, no dogs found</h3>
+    <h3>Sorry, no dogs found</h3>
   <%} else { %>
-  <ol>
-    <% dogs.forEach(dog => { %>
-    <li>
-      <a href='/dog/<%= dog.id %>'>
-        <h1>
-          <%= dog.name%>
-        </h1>
-        <img src="<%= dog.imageUrl%>">
-      </a>
-      <ul>
-        <li>
-          <%= dog.breed%>
-        </li>
-        <li>
-          <%= dog.age%>
-        </li>
-        <li>
-          <%= dog.gender%>
-        </li>
-        <li>
-          <%= dog.user.region%>
+    <ol>
 
+      <% dogs.forEach(dog => { %>
+        <li>
+          <a href='/dog/<%= dog.id %>'>
+            <h1>
+              <%= dog.name%>
+            </h1>
+            <img src="<%= dog.imageUrl%>">
+          </a>
+          <ul>
+            <li>
+              <%= dog.breed%>
+            </li>
+            <li>
+              <%= dog.age%>
+            </li>
+            <li>
+              <%= dog.gender%>
+            </li>
+            <li>
+              <%= dog.user.region%>
+
+            </li>
+          </ul>
         </li>
-      </ul>
-    </li>
-    <% if(userSession.id && userSession.id !== dog.userId){%>
-    <li class="actions">
-      <form method="POST" action="/dogs/match">
-        <input name="dogId" type="hidden" value="<%= dog.id%>">
-        <input name="ownerId" type="hidden" value="<%= dog.user.id%>">
-        <button type="submit">Match</button>
-      </form>
-    </li>
-    <%}%>
-    <% }) %>
-  </ol>
+        <% if(userSession.id && userSession.id !== dog.userId ){%>
+          <% if(dog.matches.length) { %>
+            <% if (dog.matches[0].status == 'pending') { %>
+              Pending Request
+            <% } else if (dog.matches[0].status == 'accepted') { %>
+              Go to Conversation
+            <% } else { /* rejected */ %>
+              Request rejected
+            <% } %>
+          <% } else { %>
+            <li class="actions">
+              <form method="POST" action="/dogs/match">
+                <input name="dogId" type="hidden" value="<%= dog.id%>">
+                <input name="ownerId" type="hidden" value="<%= dog.user.id%>">
+                <button type="submit">Match</button>
+              </form>
+            </li>
+          <% } %>
+        <% } %>
+      <% }) %>
+    </ol>
   <% } %>
 
   <%- include('partials/footer') %>

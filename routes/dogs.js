@@ -17,6 +17,11 @@ const getAllDogs = (req, res) => {
       {
         model: User,
       },
+      {
+        model: Match,
+        where: { iDofUserThatLiked: userSession.id },
+        required: false,
+      },
     ],
   };
 
