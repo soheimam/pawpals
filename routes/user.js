@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
-const { User, Dog, Match } = require('../models');
+const { User, Dog, Match, Conversation } = require('../models');
 
 //create a new user from the signup form
 const newUserPOST = (req, res) => {
@@ -73,10 +73,17 @@ const getUserProfile = (req, res) => {
     include: [
       {
         model: Match,
+        where: {
+          status: 'pending',
+        },
+        required: false,
+        include: [{ model: Dog }],
       },
+      { model: Conversation },
     ],
   }).then(user => {
     const matchRequest = user[0].matches;
+
     if (!user.length) {
       res.status(400);
       res.render('404', { error: 'This user does not exist' });

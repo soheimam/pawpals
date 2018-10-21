@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+
+<%- include('partials/head', { title: 'Messages' }) %>
+
+<body>
+  <%- include('partials/navigation') %>
+  <form method="POST" action="/conversations/<%= conversation.id %>">
+    <label for="message"> Messages about <%= conversation.dog.name %> with <%= conversation[otherUser].firstname %> </label>
+    <% if(conversation.messages.length) { %>
+      <ol>
+        <% conversation.messages.forEach(message => { %>
+          <% const msgClass = message.senderId === userSession.id ? 'own' : 'other' %>
+          <div class="message <%= msgClass %>"><%= message.message %></div>
+        <% }) %>
+      </ol>
+    <% } else { %>
+      <div>No messages yet. Start the conversation!</div>
+    <% } %>
+    <textarea name="message"></textarea>
+    <input type="hidden" name="senderId" value="<%= userSession.id %>" />
+    <input type="hidden" name="receiverId" value="<%= conversation[otherUser].id %>" />
+    <button type="submit">Send</button>
+  </form>
+
+  <%- include('partials/footer') %>
+</body>
+
+</html>

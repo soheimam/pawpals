@@ -3,13 +3,13 @@ module.exports = (sequelize, type) => {
     'matches',
     {
       iDofUserThatLiked: {
-        type: type.STRING,
+        type: type.INTEGER,
       },
       nameOfUserThatLiked: {
         type: type.STRING,
       },
-      accepted: {
-        type: type.BOOLEAN,
+      status: {
+        type: type.STRING,
       },
     },
 

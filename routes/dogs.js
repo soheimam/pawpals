@@ -17,6 +17,11 @@ const getAllDogs = (req, res) => {
       {
         model: User,
       },
+      {
+        model: Match,
+        where: { iDofUserThatLiked: userSession.id },
+        required: false,
+      },
     ],
   };
 
@@ -50,7 +55,7 @@ const matchDogs = (req, res) => {
     nameOfUserThatLiked: fullnameofuserthatliked,
     dogId: likedDog,
     userId: likedDogOwner,
-    accepted: false,
+    status: 'pending',
   }).then(() => {
     res.redirect('/dogs');
   });

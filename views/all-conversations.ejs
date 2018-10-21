@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+
+<%- include('partials/head', { title: 'All Conversations' }) %>
+
+<body>
+  <%- include('partials/navigation') %>
+<h1>Here are all your conversations</h1>
+<% conversations.forEach(c => { %>
+  <% if(userSession.id === c.ownerId) {%>
+    <a href="/conversations/<%= c.id%>">Your conversation with <%= c.user.firstname%> <%= c.user.lastname%> about <%= c.dog.name%></a>
+  <% }else{%>
+    <a href="/conversations/<%= c.id%>">Your conversation with <%= c.owner.firstname%> <%= c.owner.lastname%> about <%= c.dog.name%></a>
+  <% }%>
+
+<%})%>
+  <%- include('partials/footer') %>
+</body>
+
+</html>
