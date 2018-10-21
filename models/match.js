@@ -8,8 +8,8 @@ module.exports = (sequelize, type) => {
       nameOfUserThatLiked: {
         type: type.STRING,
       },
-      accepted: {
-        type: type.BOOLEAN,
+      status: {
+        type: type.STRING,
       },
     },
 

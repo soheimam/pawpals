@@ -24,6 +24,8 @@ User.hasMany(Dog);
 Dog.belongsTo(User);
 Dog.hasMany(Match);
 User.hasMany(Match);
+Match.belongsTo(User);
+Match.belongsTo(Dog);
 
 module.exports = {
   db,

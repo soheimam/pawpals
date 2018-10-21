@@ -61,7 +61,7 @@
         </li>
       </ul>
     </li>
-    <% if(userSession && userSession.id !== dog.userId){%>
+    <% if(userSession.id && userSession.id !== dog.userId){%>
     <li class="actions">
       <form method="POST" action="/dogs/match">
         <input name="dogId" type="hidden" value="<%= dog.id%>">

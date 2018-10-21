@@ -50,7 +50,7 @@ const matchDogs = (req, res) => {
     nameOfUserThatLiked: fullnameofuserthatliked,
     dogId: likedDog,
     userId: likedDogOwner,
-    accepted: false,
+    status: 'pending',
   }).then(() => {
     res.redirect('/dogs');
   });

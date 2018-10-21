@@ -9,16 +9,32 @@
   <h1>Welcome
     <%= userSession.firstname %>, to your dashboard or whatever we want to call this?</h1>
   <!--Match request-->
+
   <%  if (matchRequest.length) { %>
-    <p>You have a message request from:</p>
+    <p>Your messages request:</p>
     <% matchRequest.forEach(match => { %>
-       <div><%= match.nameOfUserThatLiked %></div>
-       <form method="POST" action="/message/accept">
-        <input type="hidden" value="<%= userSession.id %>" name="userThatAccepts">
-        <input type="hidden" value="<%= match.iDofUserThatLiked %>" name="userThatRequested">
-        <button type="submit">Accept</button>
-      </form>
-  <% }) %>
+      <div class="accept">
+        <h3><%= match.nameOfUserThatLiked %> liked <%= match.dog.name%> </h3>
+        <form method="POST" action="/message/update-status">
+          <input type="hidden" value="<%= userSession.id %>" name="userId">
+          <input type="hidden" value="<%= match.iDofUserThatLiked %>" name="userThatRequested">
+          <input type="hidden" value="<%= match.nameOfUserThatLiked %>" name="nameThatReq">
+          <input type="hidden" value="<%= match.dog.id%>" name="dogId">
+          <input type="hidden" value="accepted" name="status">
+          <button type="submit">Accept</button>
+        </form>
+      </div>
+      <div class="reject">
+        <form method="POST" action="/message/update-status">
+          <input type="hidden" value="<%= userSession.id %>" name="userId">
+          <input type="hidden" value="<%= match.iDofUserThatLiked %>" name="userThatRequested">
+          <input type="hidden" value="<%= match.nameOfUserThatLiked %>" name="nameThatReq">
+          <input type="hidden" value="<%= match.dog.id%>" name="dogId">
+          <input type="hidden" value="rejected" name="status">
+          <button type="submit">Reject</button>
+        </form>
+      </div>
+    <% }) %>
   <% } %>
 
   <%  if (!dogs.length) { %>
