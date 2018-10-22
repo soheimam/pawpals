@@ -1,14 +1,40 @@
 <!DOCTYPE html>
 
-<%- include('partials/head', { title: 'Home' }) %>
-
+<link href="/css/base.css" rel="stylesheet" type="text/css">
+<link href="/css/index.css" rel="stylesheet" type="text/css">
+<link href="/css/main.css" rel="stylesheet" type="text/css">
 <body>
   <%- include('partials/navigation') %>
   <% if(userSession && userSession.id){%>
-    <h1>Welcome <%= userSession.firstname %>. See <a href="/user/<%= userSession.id %>">your profile</a></h1>
+    <h1 class="yellow">Welcome <%= userSession.firstname %>. See <a href="/user/<%= userSession.id %>">your profile</a></h1>
   <%} %>
-    <h1>Hello this is our landing page</h1>
+   
+<section class="natural">
+  <img src="/images/lui-peng-708223-unsplash.jpg">
+  <div class="copy">
+  <h2 class="yellow">
+    Pawpals.
+  </h2>
+  <p>
+    Find a mate for your mate.
+  </p>
+  </div>
+</section>
 
+<section class="one-thing">
+  <img src="/images/sergio-salamanca-1098106-unsplash.jpg">
+  <div class="copy">
+    <h3>Love is one sniff away</h3>
+    <p class ="yellow">Finding the right partner for your pooch can be difficult, but meeting new potential mates shouldnt be. Join thousands of users looking for love. </p>
+  </div>
+</section>
+
+<section class="lookbook">
+<h2>
+  View Lookbooks
+  </h2>
+</section>
+ 
   <%- include('partials/footer') %>
 
 </body>

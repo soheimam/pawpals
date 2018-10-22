@@ -4,7 +4,7 @@
 
 <body class="allDogs">
   <%- include('partials/navigation') %>
-  <h1> Here are all the doggos
+  <h1> Search for your perfect<span class="yellow"> mate.</span>
   </h1>
   <H3>Filter your search</H3>
   <form method="GET" action="/dogs" autocomplete="off">
@@ -40,26 +40,30 @@
     <% dogs.forEach(dog => { %>
     <li>
       <a href='/dog/<%= dog.id %>'>
-        <h1>
-          <%= dog.name%>
-        </h1>
-        <img src="<%= dog.imageUrl%>">
-      </a>
-      <ul>
-        <li>
-          <%= dog.breed%>
-        </li>
-        <li>
-          <%= dog.age%>
-        </li>
-        <li>
-          <%= dog.gender%>
-        </li>
-        <li>
-          <%= dog.user.region%>
-
-        </li>
-      </ul>
+        <div class="search-results">
+          <img src="<%= dog.imageUrl%>">
+        </a>
+        
+        <ul>
+          <li><h2>
+              <%= dog.name%>
+            </h2></li>
+          <li>
+            <%= dog.breed%>
+          </li>
+          <li>
+            <%= dog.age%>
+          </li>
+          <li>
+            <%= dog.gender%>
+          </li>
+          <li>
+            <%= dog.user.region%>
+  
+          </li>
+        </ul>
+       </div>
+        
     </li>
     <% if(userSession && userSession.id !== dog.userId){%>
     <li class="actions">

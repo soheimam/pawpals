@@ -4,18 +4,21 @@
   display:flex;
   justify-content:center;
   flex-wrap: wrap;
-  /* margin-top: 20px; */
-  margin:0 20px 0 0 auto;
+
+  margin-top: 40px;
 }
 
 .grid{
   flex-wrap: wrap;
   display: flex;
-  justify-content: center;
-  flex-wrap:wrap;
+
 }
 
-
+.block{
+  width: 100%;
+  text-align: left;
+  margin-left: 40px;
+}
 .square{
   width: 250px;
   height: 250px;
@@ -23,15 +26,14 @@
   background-color:#f4dc59;
   display:flex;
   justify-content: center;
-  align-items: center;
+  align-items: end;
   overflow: hidden
 }
 .block{
-  width:100%; 
+  text-align:left;
+  margin-left:0;
 }
-.square h3{
-  align-self: center ;
-}
+
 .dog-img{
 width: 100%;
 opacity:0.5;
@@ -47,7 +49,7 @@ opacity:0.5;
   background-repeat: no-repeat;
   background-position: center center;
 }
-.search{
+.messages{
   background-image: url(/images/messages@2x.png);
   background-repeat: no-repeat;
   background-position: center center;

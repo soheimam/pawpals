@@ -5,44 +5,50 @@
 
 <body>
   <%- include('partials/navigation') %>
-  
+
 
   <div class="wrapper">
-      <h1 class="block"> Welcome <%= userSession.firstname %> </h1>
-  <div class="grid">
-  
-    <div class="square edit"><a href='/dog/messages'><h3>Edit profile</h3></a> 
+    <h1 class="block"> Welcome
+     <span class="yellow"> <%= userSession.firstname %> </span>
+    </h1>
+    <div class="grid">
 
-    </div>
-    <%  if (dogs.length) { %>
-      <div class="square messages"><a href='/dog/messages'> <h3>Messages</h3> </a></div>
-    
-      <div class="square matches"> <h3>Matches</h3>
-    </div>
+      <div class="square edit"><a href='/dog/messages'>
+          <h3>Edit profile</h3>
+        </a>
 
-    <% dogs.map(dog => { %>
-    <div class="square profile" style="background-image: url(<%= dog.imageUrl %>); background-repeat: no-repeat; background-position:center center; background-size:cover; opacity: 0.5;"   > <h3><%= dog.name %> Profile</h3>
-      
-    </div>
-    <% }) %> 
-    <% } else { %>
+      </div>
+      <%  if (dogs.length) { %>
+      <div class="square messages"><a href='/dog/messages'>
+          <h3>Messages</h3>
+        </a></div>
+
+      <div class="square matches">
+        <h3>Matches</h3>
+      </div>
+
+      <% dogs.map(dog => { %>
+      <div class="square profile" style="background-image: url(<%= dog.imageUrl %>); background-repeat: no-repeat; background-position:center center; background-size:cover; opacity: 0.5;">
+        <h3>
+          <%= dog.name %></h3>
+
+      </div>
+      <% }) %>
+      <% } else { %>
       <div class="square"> <a href='/dog/new'>Create a dog profile</a>
-      
-      </div>
-      <% } %>   
 
-      <div class="square search"> <h3>Search
+      </div>
+      <% } %>
+
+      <div class="square search">
+        <h3>Search
         </h3>
-        
       </div>
-  
-
-    
-
+      
   </div>
 
 
-  <%- include('partials/footer') %>
+    <%- include('partials/footer') %>
 </body>
 
 </html>
