@@ -11,14 +11,18 @@
         <span class="yellow"> <%= userSession.firstname %> </span>
     </h1>
 
+    <div class="grid">
     <%  if (!dogs.length) { %>
-      <p>You haven't registered any dogs yet!</p>
       <div class="square new-profile">
         <a href='/dog/new'><h3>Add Dog</h3></a>
       </div>
+      <div class="square search">
+          <a href='/dogs'><h3>Browse dogs
+        </h3></a>
+      </div>
 
     <% } else { %>
-      <div class="grid">
+
         <div class="square messages"><a href='/conversations'>
             <h3>Conversations</h3>
           </a>
@@ -34,6 +38,9 @@
             <a href='/dogs'><h3>Browse dogs
           </h3></a>
         </div>
+        <div class="square new-profile">
+            <a href='/dog/new'><h3>Add Dog</h3></a>
+        </div>
 
       <% dogs.forEach(dog => { %>
           <div class="square profile"
@@ -43,12 +50,10 @@
             <h3><%= dog.name %></h3>
           </a>
           </div>
-
       <% }) %>
-
-
     <% } %>
-
+    </div>
+  </div>
 
   <%- include('partials/footer') %>
 </body>

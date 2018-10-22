@@ -29,9 +29,7 @@ const getMatchReq = (req, res) => {
   const message = req.query.message;
   Match.findAll({
     where: {
-      iDofUserThatLiked: {
-        [Op.ne]: userSession.id,
-      },
+      userId: userSession.id,
       status: 'pending',
     },
     required: false,
