@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const { User, Dog, Match, Conversation } = require('../models');
 
 //create a new user from the signup form
