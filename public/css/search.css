@@ -1,0 +1,28 @@
+.search-results{
+    display:flex;
+    justify-content:start;
+    align-items: center;
+    height:200px;
+    width:800px;
+  }
+  
+  .search-results img{
+    width:150px;
+    margin-right: 20px;
+  }
+  
+  .search-results p{
+    width:300px;
+    align-self: center;
+    margin-left:15px;
+  }
+  ol{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  ol li{
+    line-height: 1;
+  }

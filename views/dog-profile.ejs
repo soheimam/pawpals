@@ -11,13 +11,19 @@
       <div class="photo">
         <img src="<%=dog.imageUrl %>" />
       </div>
+      <%  if (dog.userId === user.id) { %>
+        <div class="actions">
+          <a href='/dog/<%= dog.id %>/edit'>Edit</a>
+          <a href="#" class="toggle">Delete</a>
+        </div>
+        <%} %>
     </section>
 
-    <section class="menu-wrapper">
+    <section class="profile-text">
       <h1 class="stats">
-        Hi my name is Sophie
+        Hi my name is <span class="yellow"> <%=dog.name %> </span>
       </h1>
-      <div class="menu-item">
+
 
         <p class="stats">
           <font color="#ffbe51">I am from</font>
@@ -31,11 +37,11 @@
         <p class="stats">
           <%= dog.breed %>
         </p>
-      </div>
+
       <p class="description">
         <%= dog.description %>
       </p>
-  <div class="buttons">
+  <div class="swipe-buttons">
     <img src="/images/yes.svg">
     <img src="/images/x.svg">
   </div>
@@ -44,15 +50,9 @@
   </div>
 </body>
 
-<!--   
-  <%  if (dog.userId === user.id) { %>
-  <div class="actions">
-    <a href='/dog/<%= dog.id %>/edit'>Edit</a>
-    <a href="#" class="toggle">Delete</a>
-  </div>
-  <%} %> -->
+  
 
-<!-- <div id="deleteModal">
+<div id="deleteModal">
     <div class="wrapper">
       <h2>Are you sure you want to delete this dog?</h2>
       <a href="#" class="toggle">Never mind, close this shit</a>
@@ -62,7 +62,7 @@
       </form>
     </div>
   </div>
- -->
+
 
 <%- include('partials/footer') %>
 <script type="text/javascript" src="/javascript/dogProfile.js"></script>
