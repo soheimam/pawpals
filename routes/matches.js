@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const { User, Dog, Match } = require('../models');
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
 const matchDogs = (req, res) => {
   const likedDog = req.body.dogId;
@@ -27,6 +29,9 @@ const getMatchReq = (req, res) => {
   const message = req.query.message;
   Match.findAll({
     where: {
+      iDofUserThatLiked: {
+        [Op.ne]: userSession.id,
+      },
       status: 'pending',
     },
     required: false,
