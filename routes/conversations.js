@@ -60,7 +60,6 @@ const conversationsGet = (req, res) => {
       },
     ],
   }).then(conversations => {
-    console.log(conversations);
     res.render('all-conversations', { userSession, conversations });
   });
 };

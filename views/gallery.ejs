@@ -52,7 +52,7 @@
                 <% if (dog.matches[0].status == 'pending') { %>
                   <button disabled>Pending Request</button>
                 <% } else if (dog.matches[0].status == 'accepted') { %>
-                  <a href="/messages/<%= dog.id %>">Go to Conversation</a>
+                  <a href="/conversations/<%= dog.conversations[0].id %>">Go to Conversation</a>
                 <% } else { /* rejected */ %>
                   Request rejected
                 <% } %>
