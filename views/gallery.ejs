@@ -39,32 +39,32 @@
     <ol>
 
       <% dogs.forEach(dog => { %>
-        <li>
+        <li class="square">
           <a href='/dog/<%= dog.id %>' class="search-results">
             <img src="<%= dog.imageUrl%>">
             <h3><%= dog.name %></h3>
           </a>
           <%= dog.age%> yo <%= dog.gender%> <%= dog.breed%> in <%= dog.user.region%>
 
-          <% if(userSession.id && userSession.id !== dog.userId ){%>
-            <% if(dog.matches.length) { %>
-              <% if (dog.matches[0].status == 'pending') { %>
-                <button disabled>Pending Request</button>
-              <% } else if (dog.matches[0].status == 'accepted') { %>
-                <a href="/messages/<%= dog.id %>">Go to Conversation</a>
-              <% } else { /* rejected */ %>
-                Request rejected
-              <% } %>
-            <% } else { %>
-              <li class="actions">
+          <div class="actions">
+            <% if(userSession.id && userSession.id !== dog.userId ){%>
+              <% if(dog.matches.length) { %>
+                <% if (dog.matches[0].status == 'pending') { %>
+                  <button disabled>Pending Request</button>
+                <% } else if (dog.matches[0].status == 'accepted') { %>
+                  <a href="/messages/<%= dog.id %>">Go to Conversation</a>
+                <% } else { /* rejected */ %>
+                  Request rejected
+                <% } %>
+              <% } else { %>
                 <form method="POST" action="/dogs/match">
                   <input name="dogId" type="hidden" value="<%= dog.id%>">
                   <input name="ownerId" type="hidden" value="<%= dog.user.id%>">
                   <button type="submit">Match</button>
                 </form>
-              </li>
+              <% } %>
             <% } %>
-          <% } %>
+          </div>
         </li>
       <% }) %>
     </ol>
