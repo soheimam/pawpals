@@ -2,61 +2,61 @@
 
 <%- include('partials/dashboard', { title: 'User profile' }) %>
 
-
 <body>
   <%- include('partials/navigation') %>
 
   <div class="wrapper">
-
     <%= message %>
-    <h1 class="block"> Welcome <%= userSession.firstname %></h1>
-    <!--Match request-->
+    <h1 class="block"> Welcome
+        <span class="yellow"> <%= userSession.firstname %> </span>
+    </h1>
 
-    <%  if (matchRequest.length) { %>
-      <p>Your messages request</p>
-      <% matchRequest.forEach(match => { %>
-        <div class="accept">
-          <h3><%= match.nameOfUserThatLiked %> liked <%= match.dog.name%> </h3>
-          <form method="POST" action="/conversations/update-status">
-            <input type="hidden" value="<%= userSession.id %>" name="userId">
-            <input type="hidden" value="<%= match.iDofUserThatLiked %>" name="userThatRequested">
-            <input type="hidden" value="<%= match.nameOfUserThatLiked %>" name="nameThatReq">
-            <input type="hidden" value="<%= match.dog.id%>" name="dogId">
-            <input type="hidden" value="accepted" name="status">
-            <button type="submit">Accept</button>
-          </form>
-        </div>
-        <div class="reject">
-          <form method="POST" action="/conversations/update-status">
-            <input type="hidden" value="<%= userSession.id %>" name="userId">
-            <input type="hidden" value="<%= match.iDofUserThatLiked %>" name="userThatRequested">
-            <input type="hidden" value="<%= match.nameOfUserThatLiked %>" name="nameThatReq">
-            <input type="hidden" value="<%= match.dog.id%>" name="dogId">
-            <input type="hidden" value="rejected" name="status">
-            <button type="submit">Reject</button>
-          </form>
-        </div>
-      <% }) %>
-    <% } %>
-
+    <div class="grid">
     <%  if (!dogs.length) { %>
-      <p>You haven't registered any dogs yet!</p>
-      <a href='/dog/new' class="square">Create a dog profile</a>
+      <div class="square new-profile">
+        <a href='/dog/new'><h3>Add new dog</h3></a>
+      </div>
+      <div class="square search">
+          <a href='/dogs'><h3>Browse dogs
+        </h3></a>
+      </div>
+
     <% } else { %>
-      <p>Here are your furry babies:</p>
+
+        <div class="square messages"><a href='/conversations'>
+            <h3>Conversations</h3>
+          </a>
+        </div>
+
+        <div class="square matches">
+          <a href='/match/request'>
+              <h3>Match request</h3>
+          </a>
+
+        </div>
+        <div class="square search">
+            <a href='/dogs'><h3>Browse dogs
+          </h3></a>
+        </div>
+        <div class="square new-profile">
+            <a href='/dog/new'><h3>Add another dog</h3></a>
+        </div>
+
       <% dogs.forEach(dog => { %>
-        <a href="/dog/<%= dog.id %>">
           <div class="square profile"
-              style="background-image: url(<%= dog.imageUrl %>); background-repeat: no-repeat; background-position:center center background-size:cover; opacity: 0.5;"
+              style="background-image: url(<%= dog.imageUrl %>); background-repeat: no-repeat; background-position:center center; background-size:cover; opacity: 0.5;"
           >
-            <h3><%= dog.name %> Profile</h3>
+          <a href="/dog/<%= dog.id %>">
+            <h3><%= dog.name %></h3>
+          </a>
           </div>
-        </a>
       <% }) %>
     <% } %>
+    </div>
   </div>
 
   <%- include('partials/footer') %>
 </body>
 
 </html>
+

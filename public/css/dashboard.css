@@ -1,61 +1,70 @@
 @import url('https://fonts.googleapis.com/css?family=Karla');
-
-.wrapper{
-  display:flex;
-  justify-content:center;
+.wrapper {
+  display: flex;
+  justify-content: center;
   flex-wrap: wrap;
-
   margin-top: 40px;
 }
 
-.grid{
+.grid {
   flex-wrap: wrap;
   display: flex;
-
 }
 
-.block{
+.block {
   width: 100%;
   text-align: left;
   margin-left: 40px;
 }
-.square{
+
+.square {
   width: 250px;
   height: 250px;
-  margin:10px;
-  background-color:#f4dc59;
-  display:flex;
+  margin: 10px;
+  background-color: #f4dc59;
+  display: flex;
   justify-content: center;
-  align-items: flex-end;;
+  align-items: flex-end;
+  ;
   overflow: hidden
 }
-.block{
-  text-align:left;
-  margin-left:0;
+
+.block {
+  text-align: left;
+  margin-left: 0;
 }
 
-.dog-img{
-width: 100%;
-opacity:0.5;
+.dog-img {
+  width: 100%;
+  opacity: 0.5;
 }
 
-.edit{
+.edit {
   background-image: url(/images/edit@2x.png);
   background-repeat: no-repeat;
   background-position: center center;
 }
-.search{
+
+.search {
   background-image: url(/images/search@2x.png);
   background-repeat: no-repeat;
   background-position: center center;
 }
-.messages{
+
+.messages {
   background-image: url(/images/messages@2x.png);
   background-repeat: no-repeat;
   background-position: center center;
 }
-.matches{
+
+.matches {
   background-image: url(/images/heart@2x.png);
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.new-profile {
+  background-image: url(/images/Asset1@2x.png);
   background-repeat: no-repeat;
   background-position: center center;
 }

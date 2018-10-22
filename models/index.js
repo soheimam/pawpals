@@ -42,6 +42,7 @@ Conversation.belongsTo(User, {
 });
 
 Conversation.belongsTo(Dog);
+Dog.hasMany(Conversation);
 
 Message.belongsTo(User, {
   foreignKey: 'senderId',

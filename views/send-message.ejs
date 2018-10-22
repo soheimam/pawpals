@@ -7,19 +7,21 @@
   <form method="POST" action="/conversations/<%= conversation.id %>">
     <label for="message"> Messages about <%= conversation.dog.name %> with <%= conversation[otherUser].firstname %> </label>
     <% if(conversation.messages.length) { %>
-      <ol>
+      <ol class="all-messages-wrapper">
         <% conversation.messages.forEach(message => { %>
           <% const msgClass = message.senderId === userSession.id ? 'own' : 'other' %>
-          <div class="message <%= msgClass %>"><%= message.message %></div>
+          <li class="message <%= msgClass %>"><%= message.message %></li>
         <% }) %>
       </ol>
     <% } else { %>
       <div>No messages yet. Start the conversation!</div>
     <% } %>
-    <textarea name="message"></textarea>
-    <input type="hidden" name="senderId" value="<%= userSession.id %>" />
-    <input type="hidden" name="receiverId" value="<%= conversation[otherUser].id %>" />
-    <button type="submit">Send</button>
+    <div class="messages-actions">
+      <textarea name="message"></textarea>
+      <input type="hidden" name="senderId" value="<%= userSession.id %>" />
+      <input type="hidden" name="receiverId" value="<%= conversation[otherUser].id %>" />
+      <button type="submit">Send</button>
+    </div>
   </form>
 
   <%- include('partials/footer') %>

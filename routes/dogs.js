@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const { User, Dog, Match } = require('../models');
+const { User, Dog, Match, Conversation } = require('../models');
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 //requiring json data for select dropdowns
 const dogBreeds = require('../data/json/breeds.json');
 const breeds = dogBreeds.dogs;
@@ -20,6 +22,13 @@ const getAllDogs = (req, res) => {
       {
         model: Match,
         where: { iDofUserThatLiked: userSession.id },
+        required: false,
+      },
+      {
+        model: Conversation,
+        where: {
+          [Op.or]: [{ ownerId: userSession.id }, { userId: userSession.id }],
+        },
         required: false,
       },
     ],

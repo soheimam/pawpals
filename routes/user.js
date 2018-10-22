@@ -63,7 +63,10 @@ const newUserPOST = (req, res) => {
 
 const getUserProfile = (req, res) => {
   const userSessionData = req.session.user || {};
-  const userSessionId = req.session.user.id;
+  if (!userSessionData.id) {
+    res.redirect('/');
+  }
+  const userSessionId = userSessionData.id;
   const id = req.params.id;
   const message = req.query.message;
   User.findAll({
@@ -82,8 +85,6 @@ const getUserProfile = (req, res) => {
       { model: Conversation },
     ],
   }).then(user => {
-    const matchRequest = user[0].matches;
-
     if (!user.length) {
       res.status(400);
       res.render('404', { error: 'This user does not exist' });
@@ -97,7 +98,6 @@ const getUserProfile = (req, res) => {
           userSession: userSessionData,
           dogs: dogs,
           message,
-          matchRequest,
         });
       });
     }
