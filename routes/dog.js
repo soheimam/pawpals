@@ -77,14 +77,17 @@ const newDogPOST = (req, res) => {
       Bucket: process.env.BUCKET_NAME, 
       Name: req.file.key
      }
-    }
+    },
+    MinConfidence: 70
    };
 
    // https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/Rekognition.html#detectLabels-property
    rekognition.detectLabels(params, (err, data) => {
     if(err) throw err;
+    console.log(data)
     const dogInImage = data.Labels.filter(label => label.Name === 'Dog')
-    if (!dogInImage.length) {
+    console.log(dogInImage)
+    if (dogInImage.length === 0) {
       res.status(400);
       res.render('404', { error: 'There was no Dog found in the uploaded image, please try again.' });
       return

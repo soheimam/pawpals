@@ -26,7 +26,7 @@
   background-color:#f4dc59;
   display:flex;
   justify-content: center;
-  align-items: end;
+  align-items: flex-end;;
   overflow: hidden
 }
 .block{
