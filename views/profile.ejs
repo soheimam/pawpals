@@ -5,14 +5,11 @@
 
 <body>
   <%- include('partials/navigation') %>
-
-
   <div class="wrapper">
     <h1 class="block"> Welcome
      <span class="yellow"> <%= userSession.firstname %> </span>
     </h1>
     <div class="grid">
-
       <div class="square edit"><a href='/dog/messages'>
           <h3>Edit profile</h3>
         </a>
@@ -35,7 +32,7 @@
       </div>
       <% }) %>
       <% } else { %>
-      <div class="square"> <a href='/dog/new'><h3>Add dog profile</h3></a>
+      <div class="square new-profile"> <a href='/dog/new'><h3>Add Dog</h3></a>
 
       </div>
       <% } %>
@@ -46,7 +43,6 @@
       </div>
       
   </div>
-
 
     <%- include('partials/footer') %>
 </body>

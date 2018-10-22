@@ -65,3 +65,12 @@ p {
   display: flex;
   justify-content: space-evenly;
 }
+
+@media (max-width:800px) {
+  body {
+    font-size: 16px;
+  }
+  .flex-container {
+    flex-direction: column;
+  }
+}

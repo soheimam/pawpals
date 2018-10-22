@@ -23,6 +23,7 @@
 
 aside {
     grid-area: aside;
+    visibility: visible;
     background-color: #f9f7f7;
     display: flex;
     align-items: center;
@@ -108,3 +109,8 @@ button, input[type="submit"], input[type="reset"] {
    width:600px;
    z-index:3;
  }
+ @media (max-width:600px) {
+    aside {
+      visibility: hidden;
+    }
+}
