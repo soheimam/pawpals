@@ -4,8 +4,9 @@
 
 <body>
   <%- include('partials/navigation') %>
+<div class="container">
   <h1>Edit your dog profile </h1>
-  <form method="POST" action="/dog/<%= dogId %>/edit" autocomplete="off" enctype="multipart/form-data">
+  <form method="POST" action="/dog/<%= dogId %>/edit" autocomplete="off" enctype="multipart/form-data" class="form">
     <label for="dog-name"> Dog Name</label>
     <input type="text" id="dog-name" name="name" value="<%= name%>" required>
 
@@ -38,10 +39,10 @@
     <label for="upload">Edit the image</label>
     <input id="upload" name="file-upload" type="file" />
 
-    <button type="submit" class="nice">Save changes</button>
+    <button type="submit" class="button">Save changes</button>
 
   </form>
-
+</div>
   <%- include('partials/footer') %>
 </body>
 

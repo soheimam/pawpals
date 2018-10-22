@@ -7,15 +7,17 @@ const dogBreeds = require('../data/json/breeds.json');
 const aws = require('aws-sdk');
 const multer = require('multer');
 const multerS3 = require('multer-s3');
+
 // instantiating new s3 client
 const s3 = new aws.S3({ apiVersion: '2006-03-01' });
+const rekognition = new aws.Rekognition({apiVersion: '2016-06-27', region: 'eu-west-1'});
 
 // upload file
 const upload = multer({
   storage: multerS3({
     s3: s3,
     bucket: process.env.BUCKET_NAME,
-    //we are defining the name of the object that will be stored in s3
+    // we are defining the name of the object that will be stored in s3
     // we need to wrap the key value in a callback function, because.. req.body does not exist
     // at this point in time, since we are not even in a route.. req.body comes from forms.
     // the function on key will run as part of the middleware on whichever route we add this too.
@@ -47,6 +49,7 @@ const getDogProfile = (req, res) => {
     if (!dog.length) {
       res.status(400);
       res.render('404', { error: 'This dog does not exist' });
+      return
     } else {
       const dogData = dog[0];
       res.render('dog-profile', {
@@ -66,30 +69,54 @@ const newDogGET = (req, res) => {
 
 const newDogPOST = (req, res) => {
   const url = req.file.location;
-  const userEmail = req.session.user.email;
-  const user = req.session.user;
-  User.findOne({
-    where: {
-      email: userEmail,
+
+  // Parameters required for AWS Rekognition
+  const params = {
+    Image: {
+     S3Object: {
+      Bucket: process.env.BUCKET_NAME, 
+      Name: req.file.key
+     }
     },
-  })
-    .then(user => {
-      //populate dog table with user relation
-      return user.createDog({
-        name: req.body.name,
-        breed: req.body.breed,
-        age: req.body.age,
-        gender: req.body.gender,
-        description: req.body.description,
-        imageUrl: url,
+    MinConfidence: 70
+   };
+
+   // https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/Rekognition.html#detectLabels-property
+   rekognition.detectLabels(params, (err, data) => {
+    if(err) throw err;
+    console.log(data)
+    const dogInImage = data.Labels.filter(label => label.Name === 'Dog')
+    console.log(dogInImage)
+    if (dogInImage.length === 0) {
+      res.status(400);
+      res.render('404', { error: 'There was no Dog found in the uploaded image, please try again.' });
+      return
+    }
+    const userEmail = req.session.user.email;
+
+    User.findOne({
+      where: {
+        email: userEmail,
+      },
+    })
+      .then(user => {
+        //populate dog table with user relation
+        return user.createDog({
+          name: req.body.name,
+          breed: req.body.breed,
+          age: req.body.age,
+          gender: req.body.gender,
+          description: req.body.description,
+          imageUrl: url,
+        });
+      })
+      .then(dog => {
+        res.redirect(`/dog/${dog.id}`);
+      })
+      .catch(err => {
+        console.log(err);
       });
-    })
-    .then(dog => {
-      res.redirect(`/dog/${dog.id}`);
-    })
-    .catch(err => {
-      console.log(err);
-    });
+  })
 };
 
 const editDogGET = (req, res) => {

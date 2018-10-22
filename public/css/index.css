@@ -1,0 +1,117 @@
+body {
+
+  max-width: 960px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.natural{
+    padding-right: 260px;
+    position: relative;
+  }
+  
+  .natural img{
+    transition: transform 0.5s ease;
+  }
+  
+  .natural img:hover{
+    transform: rotate(-5deg);
+  }
+  .natural h2{
+   position: absolute;
+   right: 0;
+   top: 50%;
+   max-width: 360px;
+   font-size: 64px;
+   line-height: 1.125;
+   font-weight: 700;
+  }
+  .natural .copy{
+    position: absolute;
+    right: 0;
+    top: 50%;
+    width: 360px;
+    transform: translateY(-50%);
+  }
+  .natural h2{
+    transition: rotate(-5deg);
+  }
+  .natural:hover h2{
+    transform: scale(1.15);
+  }
+  .one-thing{
+    padding-left: 360px;
+    position:  relative;
+  }
+  
+  .one-thing .copy{
+    position: absolute;
+    top: 50px;
+    left: 0;
+    width: 400px;
+  }
+  
+  .one-thing h3{
+   font-size: 32px;
+   font-weight: 700;
+    margin-bottom: 20px;
+  }
+  
+  .one-thing p{
+   font-size: 32px;
+   font-weight: 200;
+  }
+  
+  section{
+    margin-bottom: 60px;
+  }
+  
+  .lookbook{
+      padding-top: 220px 20px 180px 20px;
+    background-image: url(image_3.jpg);
+    background-position: center;
+    background-size: cover;
+  /*   margin: 0 0 60px 0; */
+    height: 540px;
+    text-align: center;
+  }
+  
+  .lookbook h2{
+    padding-top: 30%;
+    font-size: 64px;
+    color: #fff;
+    font-weight: 700;
+  }
+  
+  .one-thing .copy,
+  .one-thing img{
+   transition: transform 0.5s ease;
+  }
+  
+  .one-thing:hover .copy{
+    transform: scale(1.1) translateX(20px);
+  }
+  .one-thing:hover img{
+    transform: rotate(10deg);
+  }
+  
+  .lookbook h2{
+    transition: all 0.5s ease;
+  }
+  
+  .lookbook:hover h2{
+    transform: scale(0.8);
+    color: rgba(255, 255, 255,0.8);
+  }
+  
+  @media-query (600px){
+    .one-thing {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    }
+  
+  }
+  

@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css?family=Karla|Lateef');
+
+.flex-container {
+  display: flex;
+  width: 100%;
+  background-color: #f9f7f7;
+}
+
+.image-wrapper {
+  width: 50%;
+}
+
+.image-wrapper img {
+  padding: 65px;
+}
+
+.profile-text {
+  width: 50%;
+  padding: 65px;
+}
+
+p {
+  grid-template-columns: 1fr 1fr;
+  font-family: 'Karla', sans-serif;
+}
+
+.menu-wrapper {
+  display: grid;
+  grid-template-columns: 1fr;
+  margin: 15px 24px 15px 24px;
+}
+
+.stats {
+  font-weight: 600;
+  font-size: 30px;
+  line-height: 1.2;
+}
+
+.description {
+  padding: 50px 0 50px 0;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.buttons img {
+  width: 100px;
+}
+
+.yellow {
+  color: #ffbe51;
+}
+
+.swipe-buttons {
+  padding-top: 20px;
+}
+
+.swipe-buttons img {
+  width: 40px;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-evenly;
+}

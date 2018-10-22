@@ -1,26 +1,28 @@
 <!DOCTYPE html>
 
-<%- include('partials/head', { title: 'Login' }) %>
+<%- include('partials/login', { title: 'Login' }) %>
 
 <body>
   <%- include('partials/navigation') %>
-  <%= message %>
-  <h1>Login </h1>
-  <p>Enter your details below</p>
-
+  <!-- <%= message %> -->
   <form method="POST" action="/login" autocomplete="off">
-    <label for="email">Email </label>
-    <input type="text" id="email" name="email" required>
-    <label for="password">Password</label>
-    <input type="password" id="password" name="password" required>
-    <button type="submit">Login</button>
+    <div class="login-wrapper">
+        <aside> <img src="/images/800.jpg"></aside>
+    <h1>Login </h1>
+    <label for="email" class="email">Email </label>
+    <input type="text" id="email" name="email" class="user-email" required>
+    <label for="password" class="password">Password</label>
+    <input type="password" id="password" name="password"  class="user-password" required>
+    <button type="submit" class="button">Login</button>
+    
   </form>
   <div class="actions">
     <p>Don't have an account?</p>
     <a href="/signup">Sign up instead</a>
   </div>
-
+</div>
   <%- include('partials/footer') %>
+</div>
 </body>
 
 </html>

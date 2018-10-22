@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 
-<%- include('partials/head', { title: 'Create dog' }) %>
+<%- include('partials/form', { title: 'Create dog' }) %>
 
 <body>
   <%- include('partials/navigation') %>
+  <div class="container">
   <h1>Create your dog profile </h1>
-  <form method="POST" action="/dog/new" autocomplete="off" enctype="multipart/form-data">
+  <form method="POST" action="/dog/new" autocomplete="off" enctype="multipart/form-data" class="form">
     <label for="dog-name"> Dog Name</label>
     <input type="text" id="dog-name" name="name" required>
 
@@ -32,10 +33,10 @@
 
     <label for="upload">Upload an image of your dog</label>
     <input id="upload" name="file-upload" type="file" />
-    <button type="submit" class="nice">Create profile </button>
+    <button type="submit" class="button">Register </button>
 
   </form>
-
+</div>
   <%- include('partials/footer') %>
 </body>
 
