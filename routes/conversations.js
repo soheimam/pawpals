@@ -4,6 +4,30 @@ const { User, Dog, Match, Message, Conversation } = require('../models');
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
+const getMatchReq = (req, res) => {
+  const userSessionData = req.session.user || {};
+  const userSessionId = userSessionData.id;
+  const message = req.query.message;
+  User.findAll({
+    where: {
+      id: id,
+    },
+    include: [
+      {
+        model: Match,
+        where: {
+          status: 'pending',
+        },
+        required: false,
+        include: [{ model: Dog }],
+      },
+    ],
+  }).then(user => {
+    const matchRequest = user[0].matches;
+    res.render('matchReq', { matchRequest });
+  });
+};
+
 const updateReqStatusPOST = (req, res) => {
   const userId = req.body.userId;
   const iDofUserThatLiked = req.body.userThatRequested;
@@ -60,6 +84,7 @@ const conversationsGet = (req, res) => {
       },
     ],
   }).then(conversations => {
+    console.log(conversations);
     res.render('all-conversations', { userSession, conversations });
   });
 };
@@ -114,6 +139,7 @@ const sendMesssagePOST = (req, res) => {
 };
 
 module.exports = router
+  .get('/match-request', getMatchReq)
   .post('/update-status', updateReqStatusPOST)
   .get('/', conversationsGet)
   .get('/:id', sendMesssageGet)

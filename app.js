@@ -19,6 +19,7 @@ const dogRoutes = require('./routes/dog.js');
 const notFoundRoutes = require('./routes/404.js');
 const allDogsRoutes = require('./routes/dogs.js');
 const allConversationsRoutes = require('./routes/conversations.js');
+const allMatchesRoutes = require('./routes/matches.js');
 
 //get the static files
 app.use(express.static('public'));
@@ -33,7 +34,7 @@ app.use(
     store: new SequelizeStore({
       db: db,
       checkExpirationInterval: 15 * 60 * 1000, // The interval at which to cleanup expired sessions in milliseconds.
-      expiration: 24 * 60 * 60 * 1000, // The maximum age (in milliseconds) of a valid session.
+      expiration: 24 * 60 * 60 * 10000, // The maximum age (in milliseconds) of a valid session.
     }),
     secret: process.env.BCRYPT_SECRET,
     saveUninitialized: true,
@@ -50,6 +51,7 @@ app.use('/user', userRoutes);
 app.use('/dog', dogRoutes);
 app.use('/dogs', allDogsRoutes);
 app.use('/conversations', allConversationsRoutes);
+app.use('/match', allMatchesRoutes);
 app.use('*', notFoundRoutes);
 
 db.sync()

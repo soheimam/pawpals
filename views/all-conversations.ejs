@@ -4,15 +4,26 @@
 
 <body>
   <%- include('partials/navigation') %>
-<h1>Here are all your conversations</h1>
-<% conversations.forEach(c => { %>
-  <% if(userSession.id === c.ownerId) {%>
-    <a href="/conversations/<%= c.id%>">Your conversation with <%= c.user.firstname%> <%= c.user.lastname%> about <%= c.dog.name%></a>
-  <% }else{%>
-    <a href="/conversations/<%= c.id%>">Your conversation with <%= c.owner.firstname%> <%= c.owner.lastname%> about <%= c.dog.name%></a>
-  <% }%>
+  <% if (!conversations.length){ %>
+  <h1>You have no conversations yet.
+  </h1>
+  <p>Start a conversation by <a href="/dogs">Matching</a> a dog or accepting a <a href="#">Match request</a>
+    </p>
+  <%}else{ %>
+    <h1>Here are all your conversations</h1>
+    <ul>
+    <% conversations.forEach(c => { %>
+      <li><% if(userSession.id === c.ownerId) {%>
+        <a href="/conversations/<%= c.id%>">Your conversation with <%= c.user.firstname%> <%= c.user.lastname%> about <%= c.dog.name%></a></li>
+      <% }else{%>
+      <li>  <a href="/conversations/<%= c.id%>">Your conversation with <%= c.owner.firstname%> <%= c.owner.lastname%> about <%= c.dog.name%></a></li>
+      <% }%>
 
-<%})%>
+    <%})%>
+  </ul>
+  <%} %>
+
+
   <%- include('partials/footer') %>
 </body>
 

@@ -10,34 +10,6 @@
 
     <%= message %>
     <h1 class="block"> Welcome <%= userSession.firstname %></h1>
-    <!--Match request-->
-
-    <%  if (matchRequest.length) { %>
-      <p>Your messages request</p>
-      <% matchRequest.forEach(match => { %>
-        <div class="accept">
-          <h3><%= match.nameOfUserThatLiked %> liked <%= match.dog.name%> </h3>
-          <form method="POST" action="/conversations/update-status">
-            <input type="hidden" value="<%= userSession.id %>" name="userId">
-            <input type="hidden" value="<%= match.iDofUserThatLiked %>" name="userThatRequested">
-            <input type="hidden" value="<%= match.nameOfUserThatLiked %>" name="nameThatReq">
-            <input type="hidden" value="<%= match.dog.id%>" name="dogId">
-            <input type="hidden" value="accepted" name="status">
-            <button type="submit">Accept</button>
-          </form>
-        </div>
-        <div class="reject">
-          <form method="POST" action="/conversations/update-status">
-            <input type="hidden" value="<%= userSession.id %>" name="userId">
-            <input type="hidden" value="<%= match.iDofUserThatLiked %>" name="userThatRequested">
-            <input type="hidden" value="<%= match.nameOfUserThatLiked %>" name="nameThatReq">
-            <input type="hidden" value="<%= match.dog.id%>" name="dogId">
-            <input type="hidden" value="rejected" name="status">
-            <button type="submit">Reject</button>
-          </form>
-        </div>
-      <% }) %>
-    <% } %>
 
     <%  if (!dogs.length) { %>
       <p>You haven't registered any dogs yet!</p>
@@ -47,7 +19,7 @@
       <% dogs.forEach(dog => { %>
         <a href="/dog/<%= dog.id %>">
           <div class="square profile"
-              style="background-image: url(<%= dog.imageUrl %>); background-repeat: no-repeat; background-position:center center background-size:cover; opacity: 0.5;"
+              style="background-image: url(<%= dog.imageUrl %>); background-repeat: no-repeat; background-position:center center; background-size:cover; opacity: 0.5;"
           >
             <h3><%= dog.name %> Profile</h3>
           </div>
