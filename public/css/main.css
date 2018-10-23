@@ -225,25 +225,23 @@ submit {
 
 /* SEARCH STYLE */
 
-
 .search-results img {
   width: 150px;
   margin-right: 20px;
   height: 150px;
 }
 
-.text{
-padding-top: 50px;
-margin-left: -50%;
+.text {
+  padding-top: 50px;
+  margin-left: -50%;
 }
 
-.square{
+.square {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
-  padding:15px;
+  padding: 15px;
 }
-
 
 /*messages styles */
 
@@ -280,7 +278,6 @@ margin-left: -50%;
   display: block;
 }
 
-
 /*signup */
 
 .signup {
@@ -315,18 +312,20 @@ margin-left: -50%;
 
 .signup .form-wrapper button {
   margin: 20px 0;
-  
-.login-actions{
-display: flex;
-justify-content: end;
-width: 1200px;
-align-content: center;
-margin-left: -36px;
 }
-.actions{
-    display: flex;
-    justify-content: end;
-    width: 1200px;
-    align-content: center;
-    margin-left: -36px;
+
+.login-actions {
+  display: flex;
+  justify-content: end;
+  width: 1200px;
+  align-content: center;
+  margin-left: -36px;
+}
+
+.actions {
+  display: flex;
+  justify-content: end;
+  width: 1200px;
+  align-content: center;
+  margin-left: -36px;
 }
