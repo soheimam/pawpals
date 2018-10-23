@@ -32,6 +32,22 @@ aside {
     padding: 65px 80px 80px 80px;
 }
 
+.form{
+    display:flex;
+    flex-direction:row;
+  }
+  section div{
+    width:50%
+  }
+  
+  section .full-image{
+  height:100vh;
+  background-image: url('https://preview.ibb.co/n7WFtA/800.jpg');
+  background-size: cover;
+  background-position: center center;
+  
+  }
+
 h1 {
     grid-area: header;
 }
@@ -95,16 +111,16 @@ button, input[type="submit"], input[type="reset"] {
   } 
 
   /* sign up container */
-  .container{
+  /* .container{
    max-width: 1170px;
    margin: 120px auto;
    padding: 1em;
- }
+ } */
  
- .form{
+ /* .form{
    display:grid;
    grid-template-columns:1fr;
    grid-gap: 30px;
    width:600px;
    z-index:3;
- }
+ } */

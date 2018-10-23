@@ -40,13 +40,17 @@
 
       <% dogs.forEach(dog => { %>
         <li class="square">
+          
           <a href='/dog/<%= dog.id %>' class="search-results">
             <img src="<%= dog.imageUrl%>">
-            <h3><%= dog.name %></h3>
           </a>
-          <%= dog.age%> yo <%= dog.gender%> <%= dog.breed%> in <%= dog.user.region%>
-
-          <div class="actions">
+     
+          <div class="info">
+          <h3><%= dog.name %></h3>
+          <p>
+          <%= dog.age%> yr <%= dog.gender%> <%= dog.breed%> in <%= dog.user.region%>
+         </p>
+        <div>
             <% if(userSession.id && userSession.id !== dog.userId ){%>
               <% if(dog.matches.length) { %>
                 <% if (dog.matches[0].status == 'pending') { %>
@@ -60,15 +64,19 @@
                 <form method="POST" action="/dogs/match">
                   <input name="dogId" type="hidden" value="<%= dog.id%>">
                   <input name="ownerId" type="hidden" value="<%= dog.user.id%>">
-                  <button type="submit">Match</button>
+                  <button type="submit" class="button">Match</button>
                 </form>
               <% } %>
             <% } %>
           </div>
+        </div>
+         
+        
         </li>
       <% }) %>
     </ol>
   <% } %>
+  
 
   <%- include('partials/footer') %>
 </body>

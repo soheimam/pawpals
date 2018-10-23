@@ -180,8 +180,24 @@ submit {
   max-width: 150px;
 }
 
+.button-long {
+  background: rgb(255, 216, 0);
+  background: linear-gradient(90deg, rgba(255, 216, 0, 1) 0%, rgba(244, 220, 89, 1) 35%);
+  background-repeat: no-repeat;
+  background-size: 100% 0.2em;
+  background-position: 0 88%;
+  transition: background-size 0.25s ease-in;
+  font-size: 20px;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 600;
+  color: var(--black-color);
+  letter-spacing: 2px;
+  text-decoration: none;
+  max-width: 250px;
+}
+
 .button:hover {
-  background-size: 100% 88%;
+  background-size: 88% 100%;
 }
 
 #footer {
@@ -209,35 +225,25 @@ submit {
 
 /* SEARCH STYLE */
 
-.search-results {
-  display: flex;
-  justify-content: start;
-  align-items: center;
-  height: 200px;
-  width: 800px;
-}
 
 .search-results img {
   width: 150px;
   margin-right: 20px;
+  height: 150px;
 }
 
-.search-results p {
-  width: 300px;
-  align-self: center;
-  margin-left: 15px;
+.text{
+padding-top: 50px;
+margin-left: -50%;
 }
 
-.search-results ol {
+.square{
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin-top: 20px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding:15px;
 }
 
-.search-results ol li {
-  line-height: 1;
-}
 
 /*messages styles */
 
@@ -274,6 +280,7 @@ submit {
   display: block;
 }
 
+
 /*signup */
 
 .signup {
@@ -308,4 +315,18 @@ submit {
 
 .signup .form-wrapper button {
   margin: 20px 0;
+  
+.login-actions{
+display: flex;
+justify-content: end;
+width: 1200px;
+align-content: center;
+margin-left: -36px;
+}
+.actions{
+    display: flex;
+    justify-content: end;
+    width: 1200px;
+    align-content: center;
+    margin-left: -36px;
 }
