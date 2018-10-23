@@ -337,3 +337,11 @@ submit {
 .square .info {
   margin-left: 50px;
 }
+
+.conversations-wrapper {
+  min-height: 60vh;
+}
+
+.match-request {
+  min-height: 60vh;
+}
