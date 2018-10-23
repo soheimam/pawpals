@@ -314,12 +314,13 @@ submit {
   margin: 20px 0;
 }
 
-.login-actions {
+.actions-wrapper {
   display: flex;
-  justify-content: end;
-  width: 1200px;
-  align-content: center;
-  margin-left: -36px;
+  justify-content: flex-end;
+}
+
+.login-actions {
+  width: 490px;
 }
 
 .actions {
