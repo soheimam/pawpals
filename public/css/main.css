@@ -277,7 +277,7 @@ submit {
 /*signup */
 
 .signup {
-  max-width: 90%;
+  max-width: 92%;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
@@ -295,7 +295,7 @@ submit {
 }
 
 .signup .image-wrapper {
-  max-width: 40%;
+  max-width: 45%;
   max-height: 95vh;
   overflow: hidden;
   position: sticky;
