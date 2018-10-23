@@ -279,6 +279,43 @@ margin-left: -50%;
 .messages-actions button {
   display: block;
 }
+
+
+/*signup */
+
+.signup {
+  max-width: 92%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.signup .fields input,
+.signup .fields label {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+}
+
+.signup .fields {
+  margin: 18px 0;
+}
+
+.signup .image-wrapper {
+  max-width: 45%;
+  max-height: 95vh;
+  overflow: hidden;
+  position: sticky;
+  top: 0;
+}
+
+.signup .form-wrapper {
+  width: 420px;
+}
+
+.signup .form-wrapper button {
+  margin: 20px 0;
+  
 .login-actions{
 display: flex;
 justify-content: end;

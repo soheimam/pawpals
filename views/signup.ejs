@@ -5,39 +5,54 @@
 <body>
   <%- include('partials/navigation') %>
   <%= message %>
-  <div class="container">
-  <form method="POST" action="/user/new" autocomplete="off" class="form">
-    
-    <h1>Sign up </h1>
-  <p>Please fill in the following fields:</p>
+  <div class="container signup">
+    <div class="image-wrapper">
+      <img src="images/pink_dogs.jpg">
+    </div>
+    <div class="form-wrapper">
+      <form method="POST" action="/user/new" autocomplete="off">
 
-    <label for="fname"> First Name</label>
-    <input type="text" id="fname" name="fname" required>
-    <label for="lname"> Last Name</label>
-    <input type="text" id="lname" name="lname" required>
+        <h1>Sign up </h1>
+        <p>Please fill in the following fields:</p>
 
-    <label for="phone"> Phone number</label>
-    <input type="text" id="phone" name="phone" required>
+        <div class="fields">
+          <label for="fname"> First Name</label>
+          <input type="text" id="fname" name="fname" required>
+        </div>
+        <div class="fields">
+          <label for="lname"> Last Name</label>
+          <input type="text" id="lname" name="lname" required>
+        </div>
+        <div class="fields">
+          <label for="phone"> Phone number</label>
+          <input type="text" id="phone" name="phone" required>
+        </div>
+        <div class="fields">
+          <label for="region"> Region</label>
+          <select name="region" required>
+            <% regions.forEach(r => { %>
+            <option value="<%= r%>">
+              <%= r%>
+            </option>
+            <% }) %>
+          </select>
+        </div>
+        <div class="fields">
+          <label for="email"> Email</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        <div class="fields">
+          <label for="password" minlength="6" maxlength="6"> Password</label>
+          <input type="password" id="password" name="password" required>
+        </div>
 
-    <label for="region"> Region</label>
-    <select name="region" required>
-      <% regions.forEach(r => { %>
-      <option value="<%= r%>">
-        <%= r%>
-      </option>
-      <% }) %>
-    </select>
-
-    <label for="email"> Email</label>
-    <input type="email" id="email" name="email" required>
-    <label for="password" minlength="6" maxlength="6"> Password</label>
-    <input type="password" id="password" name="password" required>
-    <button type="submit" class="button">Sign Up </button>
-  </form>
-  <div class="actions">
-    <p>Already have an account?</p>
-    <a href="/login">Login</a>
-  </div>
+        <button type="submit" class="button">Sign Up </button>
+      </form>
+      <div class="actions">
+        <p>Already have an account?</p>
+        <a href="/login">Login</a>
+      </div>
+    </div>
 </div>
   <%- include('partials/footer') %>
 </div>
