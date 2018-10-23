@@ -273,3 +273,39 @@ submit {
 .messages-actions button {
   display: block;
 }
+
+/*signup */
+
+.signup {
+  max-width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.signup .fields input,
+.signup .fields label {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+}
+
+.signup .fields {
+  margin: 15px 0;
+}
+
+.signup .image-wrapper {
+  max-width: 50%;
+  max-height: 95vh;
+  overflow: hidden;
+  position: sticky;
+  top: 0;
+}
+
+.signup .form-wrapper {
+  width: 450px;
+}
+
+.signup .form-wrapper button {
+  margin: 20px 0;
+}
