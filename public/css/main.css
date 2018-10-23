@@ -225,12 +225,6 @@ submit {
 
 /* SEARCH STYLE */
 
-.search-results img {
-  width: 150px;
-  margin-right: 20px;
-  height: 150px;
-}
-
 .text {
   padding-top: 50px;
   margin-left: -50%;
@@ -238,9 +232,8 @@ submit {
 
 .square {
   display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
   padding: 15px;
+  align-items: center;
 }
 
 /*messages styles */
@@ -323,10 +316,21 @@ submit {
   width: 490px;
 }
 
-.actions {
-  display: flex;
-  justify-content: end;
-  width: 1200px;
-  align-content: center;
-  margin-left: -36px;
+.allDogs ol {
+  margin-top: 50px;
+}
+
+.allDogs .square a.search-results {
+  width: 300px;
+  overflow: hidden;
+}
+
+.allDogs .square a.search-results img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+
+.square .info {
+  margin-left: 50px;
 }
