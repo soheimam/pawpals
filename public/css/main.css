@@ -37,7 +37,8 @@ body {
 
 #navbar {
   display: flex;
-  /* justify-content: space-between; */
+  justify-content: space-between;
+  padding: 50px 0;
 }
 
 #navbar h1 {
@@ -201,8 +202,10 @@ submit {
 }
 
 #footer {
-  text-align: right;
+  text-align: center;
   margin-top: 20px;
+  position: relative;
+  bottom: 0;
 }
 
 .container {
