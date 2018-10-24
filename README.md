@@ -58,7 +58,7 @@ High: This is because currently there is no one place for breeders to meet and c
 
 We store each of the previously mentioned in a table
 
-[](public/images/table_relationship.jpg)
+![table-relationship](public/images/table_relationship.jpg)
 
 **What does your product look like?**
 
