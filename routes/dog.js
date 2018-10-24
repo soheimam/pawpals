@@ -10,7 +10,10 @@ const multerS3 = require('multer-s3');
 
 // instantiating new s3 client
 const s3 = new aws.S3({ apiVersion: '2006-03-01' });
-const rekognition = new aws.Rekognition({apiVersion: '2016-06-27', region: 'eu-west-1'});
+const rekognition = new aws.Rekognition({
+  apiVersion: '2016-06-27',
+  region: 'eu-west-1',
+});
 
 // upload file
 const upload = multer({
@@ -49,7 +52,7 @@ const getDogProfile = (req, res) => {
     if (!dog.length) {
       res.status(400);
       res.render('404', { error: 'This dog does not exist' });
-      return
+      return;
     } else {
       const dogData = dog[0];
       res.render('dog-profile', {
@@ -73,24 +76,27 @@ const newDogPOST = (req, res) => {
   // Parameters required for AWS Rekognition
   const params = {
     Image: {
-     S3Object: {
-      Bucket: process.env.BUCKET_NAME, 
-      Name: req.file.key
-     }
+      S3Object: {
+        Bucket: process.env.BUCKET_NAME,
+        Name: req.file.key,
+      },
     },
-    MinConfidence: 70
-   };
+    MinConfidence: 70,
+  };
 
-   // https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/Rekognition.html#detectLabels-property
-   rekognition.detectLabels(params, (err, data) => {
-    if(err) throw err;
-    console.log(data)
-    const dogInImage = data.Labels.filter(label => label.Name === 'Dog')
-    console.log(dogInImage)
+  // https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/Rekognition.html#detectLabels-property
+  rekognition.detectLabels(params, (err, data) => {
+    if (err) throw err;
+    console.log(data);
+    const dogInImage = data.Labels.filter(label => label.Name === 'Dog');
+    console.log(dogInImage);
     if (dogInImage.length === 0) {
       res.status(400);
-      res.render('404', { error: 'There was no Dog found in the uploaded image, please try again.' });
-      return
+      res.render('404', {
+        error:
+          'There was no Dog found in the uploaded image, please try again.',
+      });
+      return;
     }
     const userEmail = req.session.user.email;
 
@@ -116,7 +122,7 @@ const newDogPOST = (req, res) => {
       .catch(err => {
         console.log(err);
       });
-  })
+  });
 };
 
 const editDogGET = (req, res) => {
