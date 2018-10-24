@@ -66,3 +66,10 @@
   #navbar ul li a:hover {
     color: #f4dc59;
   }
+  .yellow{
+    color:#ffb74d;
+  }
+  h1{
+    font-size:75px;
+    font-weight: 800;
+  }

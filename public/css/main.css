@@ -74,11 +74,11 @@ body {
 }
 
 #navbar h1 a:hover {
-  color: #f4dc59;
+  color: #ffb74d;
 }
 
 #navbar ul li a:hover {
-  color: #f4dc59;
+  color: #ffb74d;
 }
 
 /* TEXT STYLES */
@@ -359,26 +359,79 @@ submit {
 .match-actions form button {
   opacity: 0;
 }
-/* Loader */
-div.loader{
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #f9f7f7;
+   /* Loader */
+   div.loader{
+    position: fixed;
+    z-index:1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #f9f7f7;
+    
+    transition: opacity 3s;
+    
+    display: flex;
+    justify-content: center;
+    align-items:  center;
+  }
   
-  transition: opacity 1s;
+  div.loader img{
+      animation: bounce 3s infinite;
+      width: 100px;
+  }
   
-  display: flex;
-  justify-content: center;
-  align-items:  center;
-}
+  .hidden{
+    opacity: 0;
+    visibility: hidden;
+  }
 
-div.loader img{
-animation: bounce 2s infinite;
+/* LOADER */
+@-moz-keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    -moz-transform: translateY(0);
+    transform: translateY(0);
+  }
+  40% {
+    -moz-transform: translateY(-30px);
+    transform: translateY(-30px);
+  }
+  60% {
+    -moz-transform: translateY(-15px);
+    transform: translateY(-15px);
+  }
 }
-
-.hidden{
-  opacity: 0;
+@-webkit-keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+  40% {
+    -webkit-transform: translateY(-30px);
+    transform: translateY(-30px);
+  }
+  60% {
+    -webkit-transform: translateY(-15px);
+    transform: translateY(-15px);
+  }
+}
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+  40% {
+    -moz-transform: translateY(-30px);
+    -ms-transform: translateY(-30px);
+    -webkit-transform: translateY(-30px);
+    transform: translateY(-30px);
+  }
+  60% {
+    -moz-transform: translateY(-15px);
+    -ms-transform: translateY(-15px);
+    -webkit-transform: translateY(-15px);
+    transform: translateY(-15px);
+  }
 }
