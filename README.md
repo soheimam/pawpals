@@ -58,7 +58,7 @@ High: This is because currently there is no one place for breeders to meet and c
 
 We store each of the previously mentioned in a table
 
-[](https://www.notion.so/074ca08650954bb68ca99be4423a1dd4#e2a2a5d4e312440baf5c9868007b6c41)
+[](public/images/table_relationship.jpg)
 
 **What does your product look like?**
 
