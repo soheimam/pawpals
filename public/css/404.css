@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway:400,800');
+   body {
+    max-width: 1200px;
+    font-family: 'Raleway', sans-serif;
+  }
+  
+  .dogs {
+    background-color: #ffffff;
+  }
+  .text {
+    font-family: Raleway;
+    position: fixed;
+    z-index: 4;
+    font-size: 40px;
+    margin-top: 40%;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 500px;
+    height: 300px;
+    text-align: center;
+  }
+  #navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 50px 0;
+    font-family: 
+  }
+  
+  #navbar h1 {
+    font-size: 27px;
+    padding-top: 0;
+    font-weight: 700;
+  }
+  
+  #navbar h1 a {
+    text-decoration: none;
+    color: var(--black-color);
+  }
+  
+  #navbar ul li a {
+    text-decoration: none;
+    color: var(--black-color);
+    font-weight: 700;
+  }
+  
+  #navbar ul {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  #navbar li {
+    margin-left: 30px;
+    list-style-type: none;
+    font-size: 26px;
+    font-weight: 600;
+    color: #0f0b05;
+  }
+  
+  #navbar h1 a:hover {
+    color: #f4dc59;
+  }
+  
+  #navbar ul li a:hover {
+    color: #f4dc59;
+  }
+  .yellow{
+    color:#ffb74d;
+  }
+  h1{
+    font-size:75px;
+    font-weight: 800;
+  }

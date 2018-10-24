@@ -1,14 +1,29 @@
 <!DOCTYPE html>
 
-<%- include('partials/head', { title: 'Page not found' }) %>
-
+<link href="/css/base.css" rel="stylesheet" type="text/css">
+<link href="/css/404.css" rel="stylesheet" type="text/css">
 <body>
 
-  <h1> Oops..
-    <%= error %>
-  </h1>
-  <a href="/">Go back home linus</a>
+ 
 
+  <div class="text">
+      <h1> <span class="yellow">WHOOPS.</span></h1>
+      <br> <p>
+        <%= error %>
+      </p>
+      <br>
+      <a href="/">Go back home </a>
+  </div>
+  <section class ="dogs">
+  
+  </section>
+  
+  
+  <!-- <footer>
+  
+  </footer> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.12.0/matter.js"></script>
+  <script src="/javascript/dogs.js"></script>
   <%- include('partials/footer') %>
 </body>
 
