@@ -41,10 +41,12 @@ body {
   padding: 50px 0;
 }
 
-#navbar h1 {
+#navbar h1 img{
+  width:150px;
   font-size: 27px;
   padding-top: 0;
   font-weight: 700;
+  padding-bottom: 55px;
 }
 
 #navbar h1 a {
@@ -355,5 +357,28 @@ submit {
 }
 
 .match-actions form button {
+  opacity: 0;
+}
+/* Loader */
+div.loader{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #f9f7f7;
+  
+  transition: opacity 1s;
+  
+  display: flex;
+  justify-content: center;
+  align-items:  center;
+}
+
+div.loader img{
+animation: bounce 2s infinite;
+}
+
+.hidden{
   opacity: 0;
 }
