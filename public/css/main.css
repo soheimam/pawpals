@@ -1,4 +1,3 @@
-/*temporary styles for Bere's sanity*/
 
 @import url('https://fonts.googleapis.com/css?family=Raleway:400,800');
 @import url('https://fonts.googleapis.com/css?family=Karla');
@@ -105,6 +104,10 @@ h3 {
   font-size: 30px;
   font-weight: 400;
 }
+/* Remove image in mediaquery */
+.visible{
+  visibility: visible;
+}
 
 /* Link style */
 
@@ -199,7 +202,7 @@ submit {
 }
 
 .button:hover {
-  background-size: 88% 100%;
+  background-size: 100% 88%;
 }
 
 #footer {
@@ -434,4 +437,29 @@ submit {
     -webkit-transform: translateY(-15px);
     transform: translateY(-15px);
   }
+}
+
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  .visible{
+    visibility: hidden;
+  }
+  .form-wrapper{
+    margin-top: -250px;
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  /* For mobile phones: */
+  .allDogs .square a.search-results img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+  }
+  #navbar ul li a{
+    font-size: 18px; 
+    text-align: center;
+  }
+  
+  
 }

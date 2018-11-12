@@ -65,3 +65,20 @@ p {
   display: flex;
   justify-content: space-evenly;
 }
+
+@media only screen and (max-width: 450px) {
+  /* For mobile phones: */
+  .flex-container {
+    flex-direction:column;
+  }
+  .description{
+    max-width: 200px;
+  }
+  .stats{
+    margin-top:0px;
+    width:200px;
+  }
+  .photo{
+    width:300px;
+  }
+}

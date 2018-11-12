@@ -25,7 +25,6 @@
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  ;
   overflow: hidden
 }
 
@@ -67,4 +66,10 @@
   background-image: url(/images/Asset1@2x.png);
   background-repeat: no-repeat;
   background-position: center center;
+}
+@media only screen and (max-width:320px){
+  .grid{
+    align-items:center;
+    justify-content:center;
+  }
 }

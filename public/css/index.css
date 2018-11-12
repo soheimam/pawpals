@@ -55,11 +55,8 @@ body {
   .natural h1{
     color:#ffaa39;
     padding-bottom: 60px;
-    transition: rotate(-5deg);
   }
-  .natural:hover h1{
-    transform: scale(1.15);
-  }
+
   .one-thing{
     padding-left: 360px;
     position:  relative;
@@ -113,7 +110,7 @@ body {
     color: rgba(255, 255, 255,0.8);
   }
   
-  @media-query (600px){
+  @media-query(600px){
     .one-thing {
     display: flex;
     flex: 1;
